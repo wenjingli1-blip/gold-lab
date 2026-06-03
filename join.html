@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Us | GOLD Lab | UCD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','700':'#152e57','800':'#0F2040','900':'#091628'},gold:{DEFAULT:'#B07D2A',light:'#D4A044',lighter:'#EFC96A',dim:'#7A5519',muted:'#F5ECD8'},ink:'#111827',slate:'#4B5563',mist:'#F7F8FA'},fontFamily:{serif:['"DM Serif Display"','Georgia','serif'],sans:['"DM Sans"','system-ui','sans-serif']}}}}
+  </script>
+  <style>
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;}
+    .nav-link{position:relative;padding-bottom:2px;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#B07D2A;transition:width .25s ease;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #E5E7EB;border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(15,32,64,.10);z-index:50;padding:6px 0;}
+    .dropdown-menu a{display:block;padding:9px 18px;font-size:.875rem;color:#111827;white-space:nowrap;transition:background .15s,color .15s;}
+    .dropdown-menu a:hover{background:#F7F8FA;color:#B07D2A;}
+    .dropdown-trigger:hover .dropdown-menu{display:block;}
+    .link-gold{color:#B07D2A;font-weight:500;}
+    .link-gold:hover{text-decoration:underline;}
+    #mobile-menu{transition:max-height .35s ease,opacity .3s ease;}
+    .position-card{transition:box-shadow .25s,transform .25s;}
+    .position-card:hover{box-shadow:0 8px 32px rgba(15,32,64,.1);transform:translateY(-2px);}
+    .value-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0;}
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide flex items-center gap-1">Tools<svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+            <div class="dropdown-menu"><a href="tools.html#decko">DECKO</a><a href="tools.html#crispeta">CRISPETa</a><a href="tools.html#caspr">CASPR</a><a href="tools.html#exinator">ExInAtor</a><a href="tools.html#transcistor">TransCistor</a></div>
+          </div>
+          <a href="team.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Team</a>
+          <a href="publications.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Publications</a>
+          <a href="news.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded bg-navy-800 text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Research</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 bg-navy-800 text-white rounded text-sm font-medium">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- HERO -->
+  <div class="bg-navy-900 py-20 lg:py-28 relative overflow-hidden">
+    <!-- subtle background pattern -->
+    <div class="absolute inset-0 opacity-5" aria-hidden="true">
+      <svg class="w-full h-full" viewBox="0 0 800 400" fill="none">
+        <path d="M 0 200 Q 200 100 400 200 Q 600 300 800 200" stroke="white" stroke-width="1.5" stroke-dasharray="8 4"/>
+        <path d="M 0 220 Q 200 120 400 220 Q 600 320 800 220" stroke="white" stroke-width="1.5" stroke-dasharray="8 4"/>
+        <circle cx="200" cy="150" r="60" stroke="white" stroke-width="1" stroke-dasharray="4 4"/>
+        <circle cx="600" cy="250" r="80" stroke="white" stroke-width="1" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+        <p class="text-xs font-medium tracking-[0.2em] uppercase text-green-400">We Are Recruiting</p>
+      </div>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 max-w-2xl leading-tight">Join the<br><em>GOLD Lab</em></h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed">
+        Are you an ambitious scientist looking for a challenge at the forefront of genomics,
+        computational biology, and RNA therapeutics? We welcome applicants from all backgrounds
+        who are passionate about understanding the biology of long noncoding RNAs.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#positions" class="px-6 py-3 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors">View Open Positions</a>
+        <a href="#apply"     class="px-6 py-3 border border-white/30 text-white text-sm font-medium rounded hover:border-white hover:bg-white/10 transition-all">How to Apply</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAB VALUES / CULTURE -->
+  <section class="py-20 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-20">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold mb-3">Our Culture</p>
+          <div class="h-px w-8 bg-gold mb-5"></div>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-5 leading-snug">What we stand for</h2>
+          <p class="text-slate leading-relaxed">
+            We believe that the strength of our science arises from the diversity of our ideas and
+            experiences. We are committed to fostering an inclusive, collaborative laboratory culture.
+          </p>
+        </div>
+        <div class="lg:col-span-8 grid sm:grid-cols-2 gap-6">
+
+          <div class="flex gap-4 items-start">
+            <div class="value-icon bg-gold-muted border border-gold/20">
+              <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Goal-centred science</h3>
+              <p class="text-sm text-slate leading-relaxed">We do not draw a rigid line between experimental and computational work. Our projects use all tools critical for success — and when tools don't exist, we build them.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="value-icon bg-navy-50 border border-navy-100">
+              <svg class="w-6 h-6 text-navy-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Diverse &amp; inclusive</h3>
+              <p class="text-sm text-slate leading-relaxed">We welcome students, postdocs, and visiting scholars from all backgrounds, nationalities, and disciplines. Diversity of perspective drives better science.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="value-icon bg-teal-50 border border-teal-200">
+              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">International network</h3>
+              <p class="text-sm text-slate leading-relaxed">Our collaborations span Lausanne, Zurich, London, Barcelona, Singapore, and beyond. Lab members are exposed to a wide international scientific community.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="value-icon bg-green-50 border border-green-200">
+              <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1M4.22 4.22l.707.707m12.02 12.02l.707.707M1 12h1m18 0h1M4.22 19.78l.707-.707M18.364 5.636l.707-.707M12 6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Open &amp; sustainable science</h3>
+              <p class="text-sm text-slate leading-relaxed">All our tools are open-source. We are proud holders of a Green Lab Certification, reflecting our commitment to sustainable laboratory practice.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE OFFER -->
+  <section class="py-20 bg-mist border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">What We Offer</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">World-class research environment</p>
+          <p class="text-sm text-slate leading-relaxed">Access to state-of-the-art genomics facilities at UCD and through our partner institutions. Full access to high-performance computing clusters for bioinformatic analysis.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">Training across disciplines</p>
+          <p class="text-sm text-slate leading-relaxed">Whether your background is in wet-lab biology, computational science, or engineering, you will receive training in both experimental and computational approaches to RNA biology.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">International conference travel</p>
+          <p class="text-sm text-slate leading-relaxed">Lab members are supported to present their work at leading international conferences in genomics, RNA biology, and cancer biology, including EMBO, CSHL, and NCCR events.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">Career development</p>
+          <p class="text-sm text-slate leading-relaxed">Regular one-to-one mentoring with Rory Johnson, structured feedback on manuscripts and grant applications, and opportunities for cross-disciplinary collaboration and co-supervision.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">Competitive funding</p>
+          <p class="text-sm text-slate leading-relaxed">Our lab is funded by the Irish Research Council, SFI, HRB, MSCA, and Chinese Scholarship Council. Positions include competitive stipends and Irish university fees.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <p class="font-serif text-lg text-navy-800 mb-3">Life in Dublin</p>
+          <p class="text-sm text-slate leading-relaxed">UCD is located in Belfield, Dublin — one of Europe's most vibrant, English-speaking capital cities. Ireland's thriving biosciences ecosystem offers strong career prospects beyond academia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN POSITIONS -->
+  <section class="py-20 border-b border-gray-100" id="positions">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Open Positions</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="flex items-center gap-2 text-xs text-green-600 font-medium"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block"></span>Actively hiring</span>
+      </div>
+
+      <div class="space-y-5">
+
+        <!-- Position 1 -->
+        <div class="position-card border border-gray-200 rounded-xl p-6 lg:p-8 grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-8">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">PhD Position</span>
+              <span class="text-xs bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full font-medium">Computational</span>
+              <span class="text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full font-medium">Cancer</span>
+            </div>
+            <h3 class="font-serif text-xl text-navy-800 mb-3">Computational PhD: Cancer lncRNA genomics</h3>
+            <p class="text-slate text-sm leading-relaxed mb-4">
+              We are seeking a motivated PhD student to join our cancer genomics programme. The project
+              will involve developing and applying bioinformatic pipelines to identify driver lncRNAs
+              from large cancer whole-genome sequencing datasets, building on our ExInAtor framework.
+              Strong programming skills (Python, R) and an interest in cancer biology are essential.
+            </p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">Funding:</span> SFI Centre for Research Training in Genomics Data Science · Full stipend + fees</p>
+          </div>
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            <div class="text-sm text-slate space-y-1">
+              <p><span class="font-medium text-ink">Start:</span> Flexible, 2025</p>
+              <p><span class="font-medium text-ink">Duration:</span> 4 years</p>
+              <p><span class="font-medium text-ink">Location:</span> UCD, Dublin</p>
+            </div>
+            <a href="mailto:rory.johnson@ucd.ie?subject=PhD Application – Cancer lncRNA genomics"
+               class="mt-2 text-center px-4 py-2.5 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+              Apply Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Position 2 -->
+        <div class="position-card border border-gray-200 rounded-xl p-6 lg:p-8 grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-8">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">PhD Position</span>
+              <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+              <span class="text-xs bg-purple-50 text-purple-700 px-2.5 py-1 rounded-full font-medium">Neuroscience</span>
+            </div>
+            <h3 class="font-serif text-xl text-navy-800 mb-3">Experimental PhD: RNA therapeutics for neurological disease</h3>
+            <p class="text-slate text-sm leading-relaxed mb-4">
+              A PhD position is available in our RNA therapeutics programme, focusing on the development
+              of lncRNA-based therapies for Parkinson's disease and other neurodegenerative conditions.
+              The project will combine CRISPR functional screens with antisense oligonucleotide (ASO)
+              therapeutic development. Experience in cell culture and molecular biology is required.
+            </p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">Funding:</span> SFI FutureNeuro Centre · Full stipend + fees</p>
+          </div>
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            <div class="text-sm text-slate space-y-1">
+              <p><span class="font-medium text-ink">Start:</span> Flexible, 2025</p>
+              <p><span class="font-medium text-ink">Duration:</span> 4 years</p>
+              <p><span class="font-medium text-ink">Location:</span> UCD, Dublin</p>
+            </div>
+            <a href="mailto:rory.johnson@ucd.ie?subject=PhD Application – RNA therapeutics neurology"
+               class="mt-2 text-center px-4 py-2.5 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+              Apply Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Position 3: Open call -->
+        <div class="position-card border border-dashed border-gray-300 rounded-xl p-6 lg:p-8 grid lg:grid-cols-12 gap-6 items-start bg-mist">
+          <div class="lg:col-span-8">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs bg-white text-slate border border-gray-300 px-2.5 py-1 rounded-full font-medium">MSc / PhD</span>
+              <span class="text-xs bg-white text-slate border border-gray-300 px-2.5 py-1 rounded-full font-medium">Postdoctoral</span>
+              <span class="text-xs bg-white text-slate border border-gray-300 px-2.5 py-1 rounded-full font-medium">Visiting Scholar</span>
+            </div>
+            <h3 class="font-serif text-xl text-navy-800 mb-3">Open enquiries — all levels welcome</h3>
+            <p class="text-slate text-sm leading-relaxed mb-4">
+              We welcome speculative enquiries from ambitious students and early-career researchers
+              at all levels. If our research resonates with you, send Rory a brief email describing
+              your background, your research interests, and what draws you to the GOLD Lab.
+              We will respond to all enquiries.
+            </p>
+            <p class="text-xs text-slate">External fellowship applications (e.g. Marie Curie, IRC, EMBO) are actively supported.</p>
+          </div>
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            <div class="text-sm text-slate space-y-1">
+              <p><span class="font-medium text-ink">Contact:</span> rory.johnson@ucd.ie</p>
+              <p><span class="font-medium text-ink">Response:</span> All enquiries answered</p>
+            </div>
+            <a href="mailto:rory.johnson@ucd.ie?subject=Lab Enquiry"
+               class="mt-2 text-center px-4 py-2.5 border border-navy-800 text-navy-800 text-sm font-medium rounded hover:bg-navy-800 hover:text-white transition-colors">
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO APPLY -->
+  <section class="py-20 bg-mist border-b border-gray-100" id="apply">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-20">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold mb-3">Application Process</p>
+          <div class="h-px w-8 bg-gold mb-5"></div>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-5 leading-snug">How to apply</h2>
+          <p class="text-slate text-sm leading-relaxed">
+            All applications begin with a direct email to the PI.
+            We are informal and responsive — there is no online portal or form.
+          </p>
+        </div>
+        <div class="lg:col-span-8">
+          <ol class="relative border-l border-gray-300 ml-4 space-y-10">
+
+            <li class="ml-8">
+              <div class="absolute -left-3.5 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Read our research</h3>
+              <p class="text-slate text-sm leading-relaxed">Browse the <a href="research.html" class="link-gold">Research</a> and <a href="publications.html" class="link-gold">Publications</a> pages to understand our current projects. Identify which area aligns with your background and interests.</p>
+            </li>
+
+            <li class="ml-8">
+              <div class="absolute -left-3.5 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Email Rory directly</h3>
+              <p class="text-slate text-sm leading-relaxed mb-3">Send an email to <a href="mailto:rory.johnson@ucd.ie" class="link-gold">rory.johnson@ucd.ie</a> with the subject line matching your intended position. Include:</p>
+              <ul class="text-sm text-slate space-y-1.5 list-none">
+                <li class="flex gap-2"><span class="text-gold mt-1 flex-shrink-0">—</span>A brief cover letter (1 page max) explaining your interest and background</li>
+                <li class="flex gap-2"><span class="text-gold mt-1 flex-shrink-0">—</span>Your CV / résumé including academic record and publications</li>
+                <li class="flex gap-2"><span class="text-gold mt-1 flex-shrink-0">—</span>Contact details for 2–3 references (referees will only be contacted later)</li>
+              </ul>
+            </li>
+
+            <li class="ml-8">
+              <div class="absolute -left-3.5 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Initial conversation</h3>
+              <p class="text-slate text-sm leading-relaxed">Shortlisted candidates will be invited for an informal video call with Rory to discuss the science, the project, and mutual expectations. No formal interview panel at this stage.</p>
+            </li>
+
+            <li class="ml-8">
+              <div class="absolute -left-3.5 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-xs font-bold">4</div>
+              <h3 class="font-serif text-lg text-navy-800 mb-2">Visit the lab</h3>
+              <p class="text-slate text-sm leading-relaxed">Promising candidates are invited to spend a day in the lab, meet the team, and give a short presentation on their previous work. Travel support is provided where possible.</p>
+            </li>
+
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div>
+          <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold mb-3">Contact</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-6 leading-snug">Get in touch</h2>
+          <p class="text-slate leading-relaxed mb-8">
+            For all enquiries — including collaborations, media, and general questions about the lab —
+            please contact Rory Johnson directly.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-navy-50 border border-navy-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-navy-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1">Email</p>
+                <a href="mailto:rory.johnson@ucd.ie" class="link-gold">rory.johnson@ucd.ie</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-navy-50 border border-navy-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-navy-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1">Address</p>
+                <p class="text-sm text-slate">GOLD Lab, School of Biology &amp; Environmental Science,<br>University College Dublin,<br>Belfield, Dublin 4, Ireland</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-navy-50 border border-navy-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-navy-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1">Website</p>
+                <a href="https://www.gold-lab.org" target="_blank" rel="noopener" class="link-gold">www.gold-lab.org ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map placeholder + UCD info -->
+        <div>
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-navy-900 aspect-video mb-5">
+            <svg viewBox="0 0 560 315" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="560" height="315" fill="#0F2040"/>
+              <!-- simplified map grid -->
+              <line x1="0" y1="105" x2="560" y2="105" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="0" y1="210" x2="560" y2="210" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="140" y1="0" x2="140" y2="315" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="280" y1="0" x2="280" y2="315" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="420" y1="0" x2="420" y2="315" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <!-- campus boundary -->
+              <rect x="200" y="80" width="200" height="155" rx="8" fill="rgba(176,125,42,0.08)" stroke="#B07D2A" stroke-width="1.5"/>
+              <!-- pin -->
+              <circle cx="300" cy="157" r="14" fill="#B07D2A" opacity="0.9"/>
+              <circle cx="300" cy="157" r="6"  fill="white"/>
+              <!-- label -->
+              <rect x="218" y="245" width="164" height="28" rx="4" fill="rgba(255,255,255,0.08)"/>
+              <text x="300" y="264" font-size="10" fill="white" text-anchor="middle" font-family="sans-serif">University College Dublin</text>
+            </svg>
+          </div>
+          <p class="text-sm text-slate leading-relaxed">
+            UCD's Belfield campus is 4 km south of Dublin city centre, well connected by public transport.
+            The campus hosts a vibrant life sciences community and is adjacent to major research hospitals
+            and biotech companies. <a href="https://www.ucd.ie/about/campus/" target="_blank" rel="noopener" class="link-gold text-sm">Explore the campus ↗</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const border=document.getElementById('nav-border');
+  window.addEventListener('scroll',()=>{border.classList.toggle('border-gray-200',window.scrollY>24);border.classList.toggle('shadow-sm',window.scrollY>24);},{passive:true});
+  const burger=document.getElementById('burger'),mm=document.getElementById('mobile-menu');
+  burger.addEventListener('click',()=>{const open=mm.style.maxHeight&&mm.style.maxHeight!=='0px';mm.style.maxHeight=open?'0px':mm.scrollHeight+'px';mm.style.opacity=open?'0':'1';burger.setAttribute('aria-expanded',!open);document.getElementById('icon-open').classList.toggle('hidden',!open);document.getElementById('icon-close').classList.toggle('hidden',open);});
+</script>
+</body>
+</html>

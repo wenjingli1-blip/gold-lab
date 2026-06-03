@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open-Source Tools | GOLD Lab | UCD</title>
+  <meta name="description" content="Open-source bioinformatics and CRISPR tools from the GOLD Lab: DECKO, CRISPETa, CASPR, ExInAtor, TransCistor." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','700':'#152e57','800':'#0F2040','900':'#091628'},gold:{DEFAULT:'#B07D2A',light:'#D4A044',lighter:'#EFC96A',dim:'#7A5519',muted:'#F5ECD8'},ink:'#111827',slate:'#4B5563',mist:'#F7F8FA'},fontFamily:{serif:['"DM Serif Display"','Georgia','serif'],sans:['"DM Sans"','system-ui','sans-serif']}}}}
+  </script>
+  <style>
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;}
+    .nav-link{position:relative;padding-bottom:2px;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#B07D2A;transition:width .25s ease;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #E5E7EB;border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(15,32,64,.10);z-index:50;padding:6px 0;}
+    .dropdown-menu a{display:block;padding:9px 18px;font-size:.875rem;color:#111827;white-space:nowrap;transition:background .15s,color .15s;}
+    .dropdown-menu a:hover{background:#F7F8FA;color:#B07D2A;}
+    .dropdown-trigger:hover .dropdown-menu{display:block;}
+    .link-gold{color:#B07D2A;font-weight:500;}
+    .link-gold:hover{text-decoration:underline;}
+    .tool-card{transition:box-shadow .25s,transform .25s;}
+    .tool-card:hover{box-shadow:0 8px 32px rgba(15,32,64,.1);transform:translateY(-2px);}
+    code{font-family:'JetBrains Mono','Fira Code',monospace;font-size:0.8rem;background:#F0F4FA;padding:2px 6px;border-radius:4px;color:#0F2040;}
+    pre{background:#091628;color:#e5e7eb;padding:1rem 1.25rem;border-radius:8px;overflow-x:auto;font-size:0.8rem;line-height:1.6;font-family:'JetBrains Mono','Fira Code',monospace;}
+    pre .kw{color:#EFC96A;}
+    pre .cm{color:#6B7280;}
+    pre .st{color:#3DBFBF;}
+    #mobile-menu{transition:max-height .35s ease,opacity .3s ease;}
+    /* tool anchor offset for sticky nav */
+    .tool-anchor{scroll-margin-top:7rem;}
+    /* tab system */
+    .tab-btn{transition:all .2s;cursor:pointer;}
+    .tab-btn.active{border-bottom-color:#B07D2A;color:#0F2040;}
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link active text-sm font-medium text-navy-800 tracking-wide flex items-center gap-1">
+              Tools
+              <svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="dropdown-menu">
+              <a href="tools.html#decko">DECKO</a>
+              <a href="tools.html#crispeta">CRISPETa</a>
+              <a href="tools.html#caspr">CASPR</a>
+              <a href="tools.html#exinator">ExInAtor</a>
+              <a href="tools.html#transcistor">TransCistor</a>
+            </div>
+          </div>
+          <a href="team.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Team</a>
+          <a href="publications.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Publications</a>
+          <a href="news.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded hover:bg-navy-800 hover:text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Research</a>
+        <a href="tools.html"        class="py-2.5 text-sm font-medium text-navy-800 border-b border-gray-50">Tools</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 border border-navy-800 rounded text-sm font-medium text-navy-800">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- HERO -->
+  <div class="bg-navy-900 py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-gold-lighter mb-4">Open-Source Software</p>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 max-w-2xl leading-tight">Five tools.<br><em>All free. All open.</em></h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed mb-8">
+        When existing methods fall short, we build new ones. Every tool from the GOLD Lab is
+        freely available under open-source licences, with full documentation and source code on GitHub.
+      </p>
+      <!-- Quick-jump nav -->
+      <div class="flex flex-wrap gap-3">
+        <a href="#decko"      class="text-xs font-mono px-3 py-1.5 border border-white/20 text-white/80 rounded hover:border-gold hover:text-gold transition-colors">DECKO</a>
+        <a href="#crispeta"   class="text-xs font-mono px-3 py-1.5 border border-white/20 text-white/80 rounded hover:border-gold hover:text-gold transition-colors">CRISPETa</a>
+        <a href="#caspr"      class="text-xs font-mono px-3 py-1.5 border border-white/20 text-white/80 rounded hover:border-gold hover:text-gold transition-colors">CASPR</a>
+        <a href="#exinator"   class="text-xs font-mono px-3 py-1.5 border border-white/20 text-white/80 rounded hover:border-gold hover:text-gold transition-colors">ExInAtor</a>
+        <a href="#transcistor" class="text-xs font-mono px-3 py-1.5 border border-white/20 text-white/80 rounded hover:border-gold hover:text-gold transition-colors">TransCistor</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW STRIP -->
+  <section class="border-b border-gray-200 bg-white py-10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <a href="#decko" class="group text-center p-4 rounded-lg hover:bg-mist transition-colors">
+          <p class="font-mono font-bold text-lg text-navy-800 group-hover:text-gold transition-colors mb-1">DECKO</p>
+          <p class="text-xs text-slate">CRISPR lncRNA knockout vector system</p>
+        </a>
+        <a href="#crispeta" class="group text-center p-4 rounded-lg hover:bg-mist transition-colors">
+          <p class="font-mono font-bold text-lg text-navy-800 group-hover:text-gold transition-colors mb-1">CRISPETa</p>
+          <p class="text-xs text-slate">Paired sgRNA design tool</p>
+        </a>
+        <a href="#caspr" class="group text-center p-4 rounded-lg hover:bg-mist transition-colors">
+          <p class="font-mono font-bold text-lg text-navy-800 group-hover:text-gold transition-colors mb-1">CASPR</p>
+          <p class="text-xs text-slate">CRISPR screen analysis pipeline</p>
+        </a>
+        <a href="#exinator" class="group text-center p-4 rounded-lg hover:bg-mist transition-colors">
+          <p class="font-mono font-bold text-lg text-navy-800 group-hover:text-gold transition-colors mb-1">ExInAtor</p>
+          <p class="text-xs text-slate">Cancer driver lncRNA identification</p>
+        </a>
+        <a href="#transcistor" class="group text-center p-4 rounded-lg hover:bg-mist transition-colors">
+          <p class="font-mono font-bold text-lg text-navy-800 group-hover:text-gold transition-colors mb-1">TransCistor</p>
+          <p class="text-xs text-slate">Cis-regulatory lncRNA analysis</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DECKO ── -->
+  <section id="decko" class="tool-anchor py-20 lg:py-24 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+          <p class="text-xs font-mono tracking-[0.15em] text-gold uppercase mb-2">CRISPR Vector System</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-4">DECKO</h2>
+          <p class="text-xs text-slate font-medium mb-5">Dual Excision CRISPR Knockout</p>
+          <div class="space-y-2 mb-6">
+            <span class="block text-xs bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1.5 rounded-full font-medium w-fit">Experimental</span>
+            <span class="block text-xs bg-gold-muted text-gold-dim border border-gold/20 px-3 py-1.5 rounded-full font-medium w-fit">Lentiviral vector</span>
+            <span class="block text-xs bg-navy-50 text-navy-700 border border-navy-100 px-3 py-1.5 rounded-full font-medium w-fit">Single-gene &amp; genome-wide</span>
+          </div>
+          <!-- Tool illustration SVG -->
+          <div class="rounded-xl overflow-hidden border border-gray-100 bg-navy-900 aspect-square max-w-xs">
+            <svg viewBox="0 0 280 280" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="280" height="280" fill="#091628"/>
+              <!-- Lentiviral vector circle -->
+              <circle cx="140" cy="140" r="95" stroke="#3DBFBF" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.5"/>
+              <!-- LTR flanks -->
+              <rect x="50"  y="132" width="30" height="16" rx="3" fill="#B07D2A" opacity="0.8"/>
+              <rect x="200" y="132" width="30" height="16" rx="3" fill="#B07D2A" opacity="0.8"/>
+              <text x="65"  y="144" font-size="6.5" fill="white" text-anchor="middle" font-family="monospace">LTR</text>
+              <text x="215" y="144" font-size="6.5" fill="white" text-anchor="middle" font-family="monospace">LTR</text>
+              <!-- U6 → sgRNA1 -->
+              <rect x="95"  y="100" width="38" height="16" rx="3" fill="#3DBFBF" opacity="0.75"/>
+              <text x="114" y="112" font-size="6.5" fill="white" text-anchor="middle" font-family="monospace">sgRNA1</text>
+              <!-- H1 → sgRNA2 -->
+              <rect x="147" y="100" width="38" height="16" rx="3" fill="#3DBFBF" opacity="0.75"/>
+              <text x="166" y="112" font-size="6.5" fill="white" text-anchor="middle" font-family="monospace">sgRNA2</text>
+              <!-- Cas9 -->
+              <rect x="102" y="155" width="76" height="20" rx="4" fill="#B07D2A" opacity="0.9"/>
+              <text x="140" y="169" font-size="7.5" fill="white" text-anchor="middle" font-family="monospace">SpCas9</text>
+              <!-- scissors cut -->
+              <line x1="140" y1="196" x2="140" y2="220" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <text x="140" y="235" font-size="7" fill="#ef4444" text-anchor="middle" font-family="monospace">paired cut → deletion</text>
+              <text x="140" y="263" font-size="8" fill="#B07D2A" text-anchor="middle" font-family="monospace">DECKO vector</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <h3 class="font-serif text-xl text-navy-800 mb-4">Overview</h3>
+        <p class="text-slate leading-relaxed mb-4">
+          DECKO (Dual Excision CRISPR Knockout) is a lentiviral vector system for efficient
+          CRISPR-Cas9-mediated deletion of genomic regions — particularly suited to the study of
+          long noncoding RNA genes, where deletion (rather than point mutation) is often required
+          to avoid confounding effects on overlapping regulatory elements.
+        </p>
+        <p class="text-slate leading-relaxed mb-8">
+          The system delivers two sgRNAs simultaneously, each targeting one side of the region of
+          interest. Cas9-mediated cleavage at both sites results in deletion of the intervening
+          sequence, including lncRNA exons and promoters. DECKO scales seamlessly from validating
+          a single candidate gene to genome-wide pooled screens using sgRNA libraries.
+        </p>
+
+        <!-- Tabs: Usage / Installation / Citation -->
+        <div class="border-b border-gray-200 mb-6 flex gap-0">
+          <button class="tab-btn active text-sm font-medium px-5 py-3 border-b-2 border-gold text-navy-800" data-tool="decko" data-tab="usage">Usage</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="decko" data-tab="install">Installation</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="decko" data-tab="cite">Citation</button>
+        </div>
+
+        <div id="decko-usage" class="tab-panel active space-y-4">
+          <p class="text-sm text-slate leading-relaxed">DECKO is used in two stages: (1) design paired sgRNAs using CRISPETa, (2) clone them into the DECKO vector backbone and transduce target cells.</p>
+          <ol class="space-y-3 text-sm text-slate">
+            <li class="flex gap-3"><span class="text-gold font-mono flex-shrink-0">01.</span>Design paired sgRNAs flanking your target region using <a href="#crispeta" class="link-gold">CRISPETa</a></li>
+            <li class="flex gap-3"><span class="text-gold font-mono flex-shrink-0">02.</span>Anneal and ligate sgRNA oligos into the DECKO backbone (Addgene plasmid available)</li>
+            <li class="flex gap-3"><span class="text-gold font-mono flex-shrink-0">03.</span>Package lentivirus and transduce target cell line</li>
+            <li class="flex gap-3"><span class="text-gold font-mono flex-shrink-0">04.</span>Select transduced cells via puromycin resistance or GFP sorting</li>
+            <li class="flex gap-3"><span class="text-gold font-mono flex-shrink-0">05.</span>Screen clones by PCR/Sanger sequencing or quantify deletion rate by amplicon deep-sequencing</li>
+          </ol>
+        </div>
+        <div id="decko-install" class="tab-panel space-y-4">
+          <p class="text-sm text-slate leading-relaxed">DECKO is a wet-lab vector system. The plasmid backbone is deposited on Addgene. Clone sgRNAs as synthesised oligos.</p>
+          <pre><span class="cm"># Addgene plasmid deposit</span>
+<span class="kw">Plasmid:</span>  <span class="st">DECKO — #65954</span>
+<span class="kw">Backbone:</span> <span class="st">pLentiCRISPRv2-based</span>
+<span class="kw">Selection:</span><span class="st"> Puromycin / GFP dual</span>
+
+<span class="cm"># Oligo design format (sense strand)</span>
+<span class="kw">sgRNA1-F:</span> <span class="st">5'-CACCG[20nt]-3'</span>
+<span class="kw">sgRNA1-R:</span> <span class="st">5'-AAAC[20nt-RC]C-3'</span></pre>
+          <a href="https://www.addgene.org" target="_blank" rel="noopener" class="link-gold text-sm inline-flex items-center gap-1.5">Request plasmid on Addgene ↗</a>
+        </div>
+        <div id="decko-cite" class="tab-panel">
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Please cite</p>
+            <p class="text-sm text-slate leading-relaxed">
+              Aparicio-Prat E, Arnan C, Sala I, Bosch N, Guigó R, <strong class="text-ink">Johnson R</strong>. (2015).
+              DECKO: Single- and double-target chromosomal knockout with decoupled sgRNAs in lentiviral delivery.
+              <em>BMC Genomics</em>, 16, 762.
+            </p>
+            <a href="https://doi.org/10.1186/s12864-015-1971-0" target="_blank" rel="noopener" class="mt-3 text-xs link-gold inline-flex items-center gap-1">
+              doi:10.1186/s12864-015-1971-0 ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://github.com/gold-lab" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-4 py-2 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.addgene.org" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded hover:border-gold text-slate hover:text-gold transition-colors">
+            Addgene Plasmid ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CRISPETa ── -->
+  <section id="crispeta" class="tool-anchor py-20 lg:py-24 border-b border-gray-100 bg-mist">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+          <p class="text-xs font-mono tracking-[0.15em] text-gold uppercase mb-2">sgRNA Design Tool</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-4">CRISPETa</h2>
+          <p class="text-xs text-slate font-medium mb-5">CRISPR Paired Excision Tool</p>
+          <div class="space-y-2 mb-6">
+            <span class="block text-xs bg-gold-muted text-gold-dim border border-gold/20 px-3 py-1.5 rounded-full font-medium w-fit">Computational</span>
+            <span class="block text-xs bg-navy-50 text-navy-700 border border-navy-100 px-3 py-1.5 rounded-full font-medium w-fit">Python 3</span>
+            <span class="block text-xs bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1.5 rounded-full font-medium w-fit">Web interface available</span>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-navy-900 aspect-square max-w-xs">
+            <svg viewBox="0 0 280 280" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="280" height="280" fill="#091628"/>
+              <!-- genome track -->
+              <rect x="20" y="130" width="240" height="10" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <!-- target region -->
+              <rect x="95" y="128" width="90" height="14" rx="2" fill="rgba(176,125,42,0.15)" stroke="#B07D2A" stroke-width="1.5"/>
+              <!-- sgRNA left (teal arrow) -->
+              <path d="M 65 118 L 95 118 L 95 108" stroke="#3DBFBF" stroke-width="2" fill="none"/>
+              <polygon points="95,104 91,112 99,112" fill="#3DBFBF"/>
+              <text x="55" y="100" font-size="7" fill="#3DBFBF" font-family="monospace">sgRNA1</text>
+              <!-- sgRNA right (teal arrow) -->
+              <path d="M 215 118 L 185 118 L 185 108" stroke="#3DBFBF" stroke-width="2" fill="none"/>
+              <polygon points="185,104 181,112 189,112" fill="#3DBFBF"/>
+              <text x="200" y="100" font-size="7" fill="#3DBFBF" font-family="monospace">sgRNA2</text>
+              <!-- deleted region result -->
+              <rect x="20" y="162" width="240" height="10" rx="3" fill="rgba(255,255,255,0.08)"/>
+              <line x1="95" y1="162" x2="185" y2="172" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <text x="140" y="190" font-size="7" fill="#ef4444" text-anchor="middle" font-family="monospace">genomic deletion</text>
+              <!-- scoring bars -->
+              <rect x="30" y="210" width="60" height="8" rx="2" fill="#B07D2A" opacity="0.7"/>
+              <rect x="30" y="222" width="40" height="8" rx="2" fill="#B07D2A" opacity="0.5"/>
+              <rect x="30" y="234" width="75" height="8" rx="2" fill="#B07D2A" opacity="0.9"/>
+              <text x="105" y="217" font-size="6.5" fill="rgba(255,255,255,0.5)" font-family="monospace">efficiency</text>
+              <text x="105" y="229" font-size="6.5" fill="rgba(255,255,255,0.5)" font-family="monospace">specificity</text>
+              <text x="105" y="241" font-size="6.5" fill="rgba(255,255,255,0.5)" font-family="monospace">score</text>
+              <text x="140" y="265" font-size="8" fill="#B07D2A" text-anchor="middle" font-family="monospace">CRISPETa scoring model</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <h3 class="font-serif text-xl text-navy-800 mb-4">Overview</h3>
+        <p class="text-slate leading-relaxed mb-4">
+          CRISPETa automates the design of paired sgRNAs for CRISPR-Cas9 genomic deletion experiments.
+          Given a genomic region of interest (e.g. a lncRNA locus), it enumerates all possible sgRNA
+          pairs flanking the target, scores each guide for efficiency and specificity, and ranks pairs
+          for optimal deletion design.
+        </p>
+        <p class="text-slate leading-relaxed mb-6">
+          The tool is accessible as a <strong class="text-ink font-medium">command-line Python package</strong>
+          and through a <strong class="text-ink font-medium">web interface</strong>, making it suitable for
+          both computational biologists and bench scientists without programming experience.
+          A genome-wide paired sgRNA library for systematic lncRNA deletion screens can also be generated.
+        </p>
+        <div class="border-b border-gray-200 mb-6 flex gap-0">
+          <button class="tab-btn active text-sm font-medium px-5 py-3 border-b-2 border-gold text-navy-800" data-tool="crispeta" data-tab="install">Installation</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="crispeta" data-tab="usage">Usage</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="crispeta" data-tab="cite">Citation</button>
+        </div>
+        <div id="crispeta-install" class="tab-panel active">
+          <pre><span class="cm"># Install via pip</span>
+<span class="kw">pip install</span> crispeta
+
+<span class="cm"># Or clone from GitHub</span>
+<span class="kw">git clone</span> <span class="st">https://github.com/gold-lab/CRISPETa</span>
+<span class="kw">cd</span> CRISPETa
+<span class="kw">pip install</span> -r requirements.txt</pre>
+        </div>
+        <div id="crispeta-usage" class="tab-panel">
+          <pre><span class="cm"># Basic usage: design sgRNA pairs for a target region</span>
+<span class="kw">crispeta</span> \
+  --genome <span class="st">hg38</span> \
+  --target <span class="st">chr7:117,120,000-117,307,000</span> \
+  --name <span class="st">CFTR_lncRNA</span> \
+  --output <span class="st">./output/</span>
+
+<span class="cm"># Genome-wide lncRNA library design</span>
+<span class="kw">crispeta</span> --library-mode \
+  --gtf <span class="st">gencode.v44.annotation.gtf</span> \
+  --biotype <span class="st">lncRNA</span> \
+  --pairs-per-gene <span class="st">3</span> \
+  --output <span class="st">./library/</span></pre>
+        </div>
+        <div id="crispeta-cite" class="tab-panel">
+          <div class="bg-white border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Please cite</p>
+            <p class="text-sm text-slate leading-relaxed">
+              Pulido-Quetglas C, Aparicio-Prat E, Arnan C, Polidori T, Hermoso T, Palumbo E, Ponomarenko J,
+              Guigó R, <strong class="text-ink">Johnson R</strong>. (2017).
+              Scalable Design of Paired CRISPR Guide RNAs for Genomic Deletion.
+              <em>PLOS Computational Biology</em>, 13(3), e1005341.
+            </p>
+            <a href="https://doi.org/10.1371/journal.pcbi.1005341" target="_blank" rel="noopener" class="mt-3 text-xs link-gold inline-flex items-center gap-1">
+              doi:10.1371/journal.pcbi.1005341 ↗
+            </a>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://github.com/gold-lab/CRISPETa" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded hover:border-gold text-slate hover:text-gold transition-colors">Web Interface ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASPR ── -->
+  <section id="caspr" class="tool-anchor py-20 lg:py-24 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+          <p class="text-xs font-mono tracking-[0.15em] text-gold uppercase mb-2">Screen Analysis</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-4">CASPR</h2>
+          <p class="text-xs text-slate font-medium mb-5">CRISPR Analysis for Single &amp; Paired RNA-guides</p>
+          <div class="space-y-2 mb-6">
+            <span class="block text-xs bg-gold-muted text-gold-dim border border-gold/20 px-3 py-1.5 rounded-full font-medium w-fit">Computational</span>
+            <span class="block text-xs bg-navy-50 text-navy-700 border border-navy-100 px-3 py-1.5 rounded-full font-medium w-fit">R / Bioconductor</span>
+            <span class="block text-xs bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1.5 rounded-full font-medium w-fit">Genome-wide screens</span>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-navy-900 aspect-square max-w-xs">
+            <svg viewBox="0 0 280 280" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="280" height="280" fill="#091628"/>
+              <!-- volcano plot -->
+              <line x1="30" y1="240" x2="250" y2="240" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <line x1="30" y1="30" x2="30" y2="240" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <!-- scatter points -->
+              <circle cx="80"  cy="200" r="3" fill="rgba(255,255,255,0.2)"/>
+              <circle cx="100" cy="180" r="3" fill="rgba(255,255,255,0.2)"/>
+              <circle cx="120" cy="160" r="3" fill="rgba(255,255,255,0.2)"/>
+              <circle cx="140" cy="120" r="3" fill="rgba(255,255,255,0.3)"/>
+              <circle cx="160" cy="100" r="3" fill="rgba(255,255,255,0.3)"/>
+              <circle cx="60"  cy="130" r="3" fill="rgba(255,255,255,0.2)"/>
+              <circle cx="200" cy="80"  r="5" fill="#ef4444" opacity="0.9"/>
+              <circle cx="220" cy="60"  r="5" fill="#ef4444" opacity="0.9"/>
+              <circle cx="50"  cy="70"  r="5" fill="#3DBFBF" opacity="0.9"/>
+              <circle cx="55"  cy="90"  r="5" fill="#3DBFBF" opacity="0.8"/>
+              <!-- significance line -->
+              <line x1="30" y1="130" x2="250" y2="130" stroke="#B07D2A" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+              <text x="252" y="133" font-size="6.5" fill="#B07D2A" font-family="monospace">FDR</text>
+              <!-- labels -->
+              <text x="205" y="75"  font-size="6.5" fill="#ef4444" font-family="monospace">hit</text>
+              <text x="38"  y="65"  font-size="6.5" fill="#3DBFBF" font-family="monospace">hit</text>
+              <text x="140" y="260" font-size="7.5" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="monospace">log2 fold-change</text>
+              <text x="140" y="270" font-size="8" fill="#B07D2A" text-anchor="middle" font-family="monospace">CASPR hit ranking</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <h3 class="font-serif text-xl text-navy-800 mb-4">Overview</h3>
+        <p class="text-slate leading-relaxed mb-4">
+          CASPR provides an end-to-end analysis pipeline for CRISPR screens targeting lncRNAs,
+          supporting both single-guide (CRISPRi/a) and paired-guide (DECKO-style) deletion
+          library designs. It processes raw sequencing counts from a pooled screen through
+          quality control, normalisation, hit calling, and visualisation.
+        </p>
+        <p class="text-slate leading-relaxed mb-8">
+          CASPR is implemented as an <strong class="text-ink font-medium">R/Bioconductor package</strong>
+          and integrates with standard DESeq2 and MAGeCK workflows, providing lncRNA-aware
+          gene-level aggregation of paired sgRNA scores.
+        </p>
+        <div class="border-b border-gray-200 mb-6 flex gap-0">
+          <button class="tab-btn active text-sm font-medium px-5 py-3 border-b-2 border-gold text-navy-800" data-tool="caspr" data-tab="install">Installation</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="caspr" data-tab="usage">Usage</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="caspr" data-tab="cite">Citation</button>
+        </div>
+        <div id="caspr-install" class="tab-panel active">
+          <pre><span class="cm"># Install from Bioconductor</span>
+<span class="kw">if</span> (!requireNamespace(<span class="st">"BiocManager"</span>, quietly = TRUE))
+  install.packages(<span class="st">"BiocManager"</span>)
+BiocManager::install(<span class="st">"CASPR"</span>)
+
+<span class="cm"># Or install development version from GitHub</span>
+<span class="kw">devtools</span>::install_github(<span class="st">"gold-lab/CASPR"</span>)</pre>
+        </div>
+        <div id="caspr-usage" class="tab-panel">
+          <pre><span class="kw">library</span>(CASPR)
+
+<span class="cm"># Load count matrix from CRISPR screen</span>
+counts &lt;- readCounts(<span class="st">"screen_counts.txt"</span>)
+
+<span class="cm"># Run full pipeline</span>
+results &lt;- runCASPR(
+  counts   = counts,
+  design   = design_matrix,
+  mode     = <span class="st">"paired"</span>,   <span class="cm"># or "single"</span>
+  contrast = c(<span class="st">"condition"</span>, <span class="st">"treatment"</span>, <span class="st">"control"</span>)
+)
+
+<span class="cm"># Visualise hits</span>
+plotVolcano(results)</pre>
+        </div>
+        <div id="caspr-cite" class="tab-panel">
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Please cite</p>
+            <p class="text-sm text-slate leading-relaxed">
+              Pulido-Quetglas C, <strong class="text-ink">Johnson R</strong> et al. (2023).
+              CASPR: end-to-end CRISPR screen analysis for single and paired RNA-guides.
+              <em>Genome Biology</em>.
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://github.com/gold-lab/CASPR" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ExInAtor ── -->
+  <section id="exinator" class="tool-anchor py-20 lg:py-24 border-b border-gray-100 bg-mist">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+          <p class="text-xs font-mono tracking-[0.15em] text-gold uppercase mb-2">Cancer Genomics</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-4">ExInAtor</h2>
+          <p class="text-xs text-slate font-medium mb-5">Exonic Interrogation of lncRNA cancer drivers</p>
+          <div class="space-y-2 mb-6">
+            <span class="block text-xs bg-red-50 text-red-700 border border-red-200 px-3 py-1.5 rounded-full font-medium w-fit">Cancer</span>
+            <span class="block text-xs bg-gold-muted text-gold-dim border border-gold/20 px-3 py-1.5 rounded-full font-medium w-fit">Python / R</span>
+            <span class="block text-xs bg-purple-50 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-full font-medium w-fit">PCAWG validated</span>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-navy-900 aspect-square max-w-xs">
+            <svg viewBox="0 0 280 280" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="280" height="280" fill="#091628"/>
+              <!-- genome track with exons -->
+              <rect x="20" y="125" width="240" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
+              <rect x="45"  y="120" width="35" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <rect x="100" y="120" width="30" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <rect x="155" y="120" width="40" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <rect x="215" y="120" width="25" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <!-- mutation ticks (background) -->
+              <rect x="55"  y="105" width="3" height="15" fill="rgba(255,255,255,0.15)" rx="1"/>
+              <rect x="75"  y="108" width="3" height="12" fill="rgba(255,255,255,0.15)" rx="1"/>
+              <rect x="130" y="107" width="3" height="13" fill="rgba(255,255,255,0.15)" rx="1"/>
+              <rect x="175" y="103" width="3" height="17" fill="rgba(255,255,255,0.15)" rx="1"/>
+              <rect x="230" y="106" width="3" height="14" fill="rgba(255,255,255,0.15)" rx="1"/>
+              <!-- enriched mutation ticks in exon (red = signal) -->
+              <rect x="108" y="95"  width="3" height="25" fill="#ef4444" opacity="0.9" rx="1"/>
+              <rect x="116" y="90"  width="3" height="30" fill="#ef4444" opacity="0.9" rx="1"/>
+              <rect x="124" y="98"  width="3" height="22" fill="#ef4444" opacity="0.7" rx="1"/>
+              <!-- significance highlight -->
+              <rect x="97" y="87" width="36" height="45" rx="3" fill="#ef4444" opacity="0.08" stroke="#ef4444" stroke-width="1"/>
+              <text x="115" y="155" font-size="7" fill="#ef4444" text-anchor="middle" font-family="monospace">driver exon</text>
+              <!-- p-value text -->
+              <text x="115" y="185" font-size="7" fill="#ef4444" text-anchor="middle" font-family="monospace">p = 2.1e-6</text>
+              <!-- axis -->
+              <text x="140" y="265" font-size="7.5" fill="#B07D2A" text-anchor="middle" font-family="monospace">ExInAtor somatic mutation test</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <h3 class="font-serif text-xl text-navy-800 mb-4">Overview</h3>
+        <p class="text-slate leading-relaxed mb-4">
+          ExInAtor identifies cancer driver lncRNAs from whole tumour genome sequencing data.
+          For each lncRNA gene, it compares the observed somatic mutation rate within exons
+          against a local background model derived from the intronic and intergenic sequence
+          flanking the gene, correcting for trinucleotide context and replication timing.
+        </p>
+        <p class="text-slate leading-relaxed mb-6">
+          Validated on the <strong class="text-ink font-medium">PCAWG (PanCancer Analysis of Whole Genomes)</strong>
+          cohort across 38 cancer types, ExInAtor identified a set of high-confidence candidate
+          driver lncRNAs — establishing for the first time that lncRNA genes can harbour
+          positively selected somatic driver mutations in cancer.
+        </p>
+        <div class="bg-white border border-gray-200 rounded-lg p-5 mb-6">
+          <p class="text-xs font-medium tracking-widest uppercase text-slate mb-4">Key Features</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">Trinucleotide context-corrected mutation rate</p></div>
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">Replication timing normalisation</p></div>
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">Local background model per gene</p></div>
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">FDR-controlled multiple testing</p></div>
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">Compatible with MAF format input</p></div>
+            <div class="flex gap-2"><span class="text-gold mt-0.5">—</span><p class="text-sm text-slate">PCAWG-validated on 38 cancer types</p></div>
+          </div>
+        </div>
+        <div class="border-b border-gray-200 mb-6 flex gap-0">
+          <button class="tab-btn active text-sm font-medium px-5 py-3 border-b-2 border-gold text-navy-800" data-tool="exinator" data-tab="install">Installation</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="exinator" data-tab="cite">Citation</button>
+        </div>
+        <div id="exinator-install" class="tab-panel active">
+          <pre><span class="cm"># Clone repository</span>
+<span class="kw">git clone</span> <span class="st">https://github.com/gold-lab/ExInAtor</span>
+<span class="kw">cd</span> ExInAtor
+<span class="kw">pip install</span> -r requirements.txt
+
+<span class="cm"># Run on your somatic mutation file</span>
+<span class="kw">python</span> ExInAtor.py \
+  --maf     <span class="st">somatic_mutations.maf</span> \
+  --gtf     <span class="st">gencode.v44.annotation.gtf</span> \
+  --genome  <span class="st">hg38</span> \
+  --biotype <span class="st">lncRNA</span> \
+  --output  <span class="st">./results/</span></pre>
+        </div>
+        <div id="exinator-cite" class="tab-panel">
+          <div class="bg-white border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Please cite</p>
+            <p class="text-sm text-slate leading-relaxed">
+              Lanzós A, Carlevaro-Fita J, Mularoni L, Reverter F, Palumbo E, Guigó R,
+              <strong class="text-ink">Johnson R</strong>. (2017).
+              Discovery of Cancer Driver Long Noncoding RNAs across 1112 Tumour Genomes:
+              New Mutational Landscapes in Specific Cancers.
+              <em>Scientific Reports</em>, 7, 2482.
+            </p>
+            <a href="https://doi.org/10.1038/s41598-017-00323-0" target="_blank" rel="noopener" class="mt-3 text-xs link-gold inline-flex items-center gap-1">
+              doi:10.1038/s41598-017-00323-0 ↗
+            </a>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://github.com/gold-lab/ExInAtor" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TransCistor ── -->
+  <section id="transcistor" class="tool-anchor py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+          <p class="text-xs font-mono tracking-[0.15em] text-gold uppercase mb-2">Functional Genomics</p>
+          <h2 class="font-serif text-3xl text-navy-800 mb-4">TransCistor</h2>
+          <p class="text-xs text-slate font-medium mb-5">Trans-Cis regulatory lncRNA identification</p>
+          <div class="space-y-2 mb-6">
+            <span class="block text-xs bg-gold-muted text-gold-dim border border-gold/20 px-3 py-1.5 rounded-full font-medium w-fit">Computational</span>
+            <span class="block text-xs bg-navy-50 text-navy-700 border border-navy-100 px-3 py-1.5 rounded-full font-medium w-fit">Python 3 · Snakemake</span>
+            <span class="block text-xs bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1.5 rounded-full font-medium w-fit">RNA-seq compatible</span>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-navy-900 aspect-square max-w-xs">
+            <svg viewBox="0 0 280 280" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="280" height="280" fill="#091628"/>
+              <!-- lncRNA -->
+              <rect x="30" y="90" width="70" height="20" rx="4" fill="#B07D2A" opacity="0.8"/>
+              <text x="65" y="104" font-size="7.5" fill="white" text-anchor="middle" font-family="monospace">lncRNA</text>
+              <!-- arrows: cis -->
+              <path d="M 100 100 Q 130 80 155 95" stroke="#B07D2A" stroke-width="2" fill="none" marker-end="url(#arr2)"/>
+              <defs><marker id="arr2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#B07D2A"/></marker></defs>
+              <!-- neighbour gene -->
+              <rect x="155" y="82" width="80" height="20" rx="4" fill="#3DBFBF" opacity="0.7"/>
+              <text x="195" y="96" font-size="7" fill="white" text-anchor="middle" font-family="monospace">target gene</text>
+              <text x="128" y="75" font-size="7" fill="#B07D2A" text-anchor="middle" font-family="monospace">cis</text>
+              <!-- expression correlation plot -->
+              <rect x="30" y="140" width="220" height="110" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="45" y1="235" x2="240" y2="235" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <line x1="45" y1="148" x2="45" y2="235" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <!-- correlation scatter -->
+              <circle cx="65"  cy="220" r="2.5" fill="#B07D2A" opacity="0.7"/>
+              <circle cx="85"  cy="208" r="2.5" fill="#B07D2A" opacity="0.8"/>
+              <circle cx="105" cy="200" r="2.5" fill="#B07D2A" opacity="0.7"/>
+              <circle cx="125" cy="188" r="2.5" fill="#B07D2A" opacity="0.9"/>
+              <circle cx="145" cy="178" r="2.5" fill="#B07D2A" opacity="0.8"/>
+              <circle cx="165" cy="168" r="2.5" fill="#B07D2A" opacity="0.7"/>
+              <circle cx="185" cy="160" r="2.5" fill="#B07D2A" opacity="0.9"/>
+              <circle cx="210" cy="152" r="2.5" fill="#B07D2A" opacity="0.7"/>
+              <!-- trend line -->
+              <line x1="55" y1="225" x2="220" y2="150" stroke="#3DBFBF" stroke-width="1.5" opacity="0.7"/>
+              <text x="140" y="265" font-size="7.5" fill="#B07D2A" text-anchor="middle" font-family="monospace">co-expression r = 0.87</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <h3 class="font-serif text-xl text-navy-800 mb-4">Overview</h3>
+        <p class="text-slate leading-relaxed mb-4">
+          TransCistor is a computational pipeline for the large-scale identification of
+          <strong class="text-ink font-medium">cis-regulatory lncRNAs</strong> — those that act locally
+          to regulate the expression of adjacent protein-coding genes. Starting from RNA-seq data across
+          multiple conditions or tissues, it identifies lncRNA–target gene pairs with significant
+          expression correlation and spatial co-localisation on the genome.
+        </p>
+        <p class="text-slate leading-relaxed mb-6">
+          The tool generates a ranked list of high-confidence cis-regulatory candidates,
+          integrating co-expression strength, genomic distance, strand orientation, and conservation
+          into a composite score. Output is compatible with downstream CRISPR validation via DECKO/CRISPETa.
+        </p>
+        <div class="border-b border-gray-200 mb-6 flex gap-0">
+          <button class="tab-btn active text-sm font-medium px-5 py-3 border-b-2 border-gold text-navy-800" data-tool="transcistor" data-tab="install">Installation</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="transcistor" data-tab="usage">Usage</button>
+          <button class="tab-btn text-sm font-medium px-5 py-3 border-b-2 border-transparent text-slate" data-tool="transcistor" data-tab="cite">Citation</button>
+        </div>
+        <div id="transcistor-install" class="tab-panel active">
+          <pre><span class="cm"># Install via conda (recommended)</span>
+<span class="kw">conda create</span> -n transcistor python=3.10
+<span class="kw">conda activate</span> transcistor
+<span class="kw">pip install</span> transcistor
+
+<span class="cm"># Or from source</span>
+<span class="kw">git clone</span> <span class="st">https://github.com/gold-lab/TransCistor</span>
+<span class="kw">cd</span> TransCistor && <span class="kw">pip install</span> -e .</pre>
+        </div>
+        <div id="transcistor-usage" class="tab-panel">
+          <pre><span class="cm"># Run TransCistor on a count matrix</span>
+<span class="kw">transcistor run</span> \
+  --counts     <span class="st">expression_matrix.tsv</span> \
+  --gtf        <span class="st">gencode.v44.annotation.gtf</span> \
+  --window     <span class="st">500000</span>           <span class="cm"># 500kb cis window</span> \
+  --min-corr   <span class="st">0.6</span> \
+  --fdr        <span class="st">0.05</span> \
+  --output     <span class="st">./transcistor_out/</span>
+
+<span class="cm"># Generate summary report</span>
+<span class="kw">transcistor report</span> --results <span class="st">./transcistor_out/</span></pre>
+        </div>
+        <div id="transcistor-cite" class="tab-panel">
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Please cite</p>
+            <p class="text-sm text-slate leading-relaxed">
+              <strong class="text-ink">Johnson R</strong> et al. (2024).
+              TransCistor: efficient identification of cis-regulatory long noncoding RNAs.
+              <em>Bioinformatics</em>.
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://github.com/gold-lab/TransCistor" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 bg-navy-800 text-white text-sm font-medium rounded hover:bg-navy-700 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded hover:border-gold text-slate hover:text-gold transition-colors">Documentation ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTE STRIP -->
+  <section class="py-14 bg-navy-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl text-white mb-1">All tools are open-source</h2>
+        <p class="text-gray-300 text-sm">Issues, pull requests, and feature suggestions are welcome on GitHub.</p>
+      </div>
+      <div class="flex gap-4 flex-shrink-0">
+        <a href="https://github.com/gold-lab" target="_blank" rel="noopener" class="px-5 py-2.5 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors">GitHub Organisation ↗</a>
+        <a href="mailto:rory.johnson@ucd.ie?subject=Tool enquiry" class="px-5 py-2.5 border border-white/30 text-white text-sm font-medium rounded hover:border-white hover:bg-white/10 transition-all">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Tools</p>
+        <ul class="space-y-2.5 text-sm mb-6">
+          <li><a href="#decko"      class="hover:text-white transition-colors">DECKO</a></li>
+          <li><a href="#crispeta"   class="hover:text-white transition-colors">CRISPETa</a></li>
+          <li><a href="#caspr"      class="hover:text-white transition-colors">CASPR</a></li>
+          <li><a href="#exinator"   class="hover:text-white transition-colors">ExInAtor</a></li>
+          <li><a href="#transcistor" class="hover:text-white transition-colors">TransCistor</a></li>
+        </ul>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-3">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const border=document.getElementById('nav-border');
+  window.addEventListener('scroll',()=>{border.classList.toggle('border-gray-200',window.scrollY>24);border.classList.toggle('shadow-sm',window.scrollY>24);},{passive:true});
+  // Burger
+  const burger=document.getElementById('burger'),mm=document.getElementById('mobile-menu');
+  burger.addEventListener('click',()=>{const open=mm.style.maxHeight&&mm.style.maxHeight!=='0px';mm.style.maxHeight=open?'0px':mm.scrollHeight+'px';mm.style.opacity=open?'0':'1';burger.setAttribute('aria-expanded',!open);document.getElementById('icon-open').classList.toggle('hidden',!open);document.getElementById('icon-close').classList.toggle('hidden',open);});
+  // Tab system — per-tool
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const tool=btn.dataset.tool;
+      const tab=btn.dataset.tab;
+      // Deactivate all buttons for this tool
+      document.querySelectorAll(`.tab-btn[data-tool="${tool}"]`).forEach(b=>{
+        b.classList.remove('active','border-gold','text-navy-800');
+        b.classList.add('border-transparent','text-slate');
+      });
+      // Activate clicked button
+      btn.classList.add('active','border-gold','text-navy-800');
+      btn.classList.remove('border-transparent','text-slate');
+      // Show corresponding panel
+      const panelId=`${tool}-${tab}`;
+      document.querySelectorAll(`[id^="${tool}-"]`).forEach(p=>p.classList.remove('active'));
+      const panel=document.getElementById(panelId);
+      if(panel) panel.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team | GOLD Lab | UCD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:  { DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','700':'#152e57','800':'#0F2040','900':'#091628' },
+            gold:  { DEFAULT:'#B07D2A', light:'#D4A044', lighter:'#EFC96A', dim:'#7A5519', muted:'#F5ECD8' },
+            ink:   '#111827', slate:'#4B5563', mist:'#F7F8FA',
+          },
+          fontFamily: {
+            serif:['"DM Serif Display"','Georgia','serif'],
+            sans: ['"DM Sans"','system-ui','sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;}
+    .nav-link{position:relative;padding-bottom:2px;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#B07D2A;transition:width .25s ease;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #E5E7EB;border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(15,32,64,.10);z-index:50;padding:6px 0;}
+    .dropdown-menu a{display:block;padding:9px 18px;font-size:.875rem;color:#111827;white-space:nowrap;transition:background .15s,color .15s;}
+    .dropdown-menu a:hover{background:#F7F8FA;color:#B07D2A;}
+    .dropdown-trigger:hover .dropdown-menu{display:block;}
+    .link-gold{color:#B07D2A;font-weight:500;}
+    .link-gold:hover{text-decoration:underline;}
+    .member-card{transition:box-shadow .25s,transform .25s;}
+    .member-card:hover{box-shadow:0 8px 32px rgba(15,32,64,.1);transform:translateY(-2px);}
+    #mobile-menu{transition:max-height .35s ease,opacity .3s ease;}
+    .avatar{display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',Georgia,serif;font-size:1.5rem;font-weight:700;color:#fff;border-radius:50%;}
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide flex items-center gap-1">Tools<svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+            <div class="dropdown-menu"><a href="tools.html#decko">DECKO</a><a href="tools.html#crispeta">CRISPETa</a><a href="tools.html#caspr">CASPR</a><a href="tools.html#exinator">ExInAtor</a><a href="tools.html#transcistor">TransCistor</a></div>
+          </div>
+          <a href="team.html"         class="nav-link active text-sm font-medium text-navy-800 tracking-wide">Team</a>
+          <a href="publications.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Publications</a>
+          <a href="news.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded hover:bg-navy-800 hover:text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Research</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-navy-800 border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 border border-navy-800 rounded text-sm font-medium text-navy-800">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- PAGE HERO -->
+  <div class="bg-navy-900 py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-gold-lighter mb-4">The People</p>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 max-w-2xl leading-tight">An international,<br><em>interdisciplinary</em> team</h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed">
+        We bring together bioinformaticians, molecular biologists, and cell biologists from across
+        Europe, Asia, and beyond — united by curiosity about long noncoding RNA.
+      </p>
+    </div>
+  </div>
+
+  <!-- PI SECTION -->
+  <section class="py-20 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Principal Investigator</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <!-- Avatar -->
+        <div class="lg:col-span-3 flex flex-col items-center lg:items-start">
+          <div class="avatar w-32 h-32 bg-gradient-to-br from-navy-700 to-navy-800 mb-4 text-3xl ring-4 ring-gold/20">RJ</div>
+          <p class="font-serif text-xl text-navy-800 font-semibold">Rory Johnson</p>
+          <p class="text-xs font-medium tracking-widest uppercase text-gold mt-1 mb-3">Principal Investigator</p>
+          <a href="mailto:rory.johnson@ucd.ie" class="text-sm link-gold break-all">rory.johnson@ucd.ie</a>
+        </div>
+        <!-- Bio -->
+        <div class="lg:col-span-9">
+          <p class="text-slate leading-relaxed mb-6 text-lg">
+            Rory Johnson leads the GOLD Lab at University College Dublin, where he holds the position of
+            <strong class="text-ink font-medium">Associate Professor</strong>. He is also an
+            <strong class="text-ink font-medium">Adjunct Assistant Professor at the University of Bern</strong>
+            and previously served as a Junior Group Leader at the Swiss National Centre for Competence in
+            Research in RNA &amp; Disease (NCCR RNA &amp; Disease, 2016–2021).
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-mist border border-gray-200 rounded-lg p-4">
+              <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Academic Positions</p>
+              <ul class="space-y-2 text-sm text-slate">
+                <li><span class="font-mono text-xs text-gold mr-2">2020–</span>Associate Professor, UCD</li>
+                <li><span class="font-mono text-xs text-gold mr-2">2020–</span>Adjunct Asst. Prof., Univ. of Bern</li>
+                <li><span class="font-mono text-xs text-gold mr-2">2016–21</span>Junior Group Leader, NCCR RNA &amp; Disease</li>
+                <li><span class="font-mono text-xs text-gold mr-2">2010–16</span>Ramón y Cajal Fellow, CRG Barcelona</li>
+                <li><span class="font-mono text-xs text-gold mr-2">2007–09</span>Postdoc, Genome Institute of Singapore</li>
+              </ul>
+            </div>
+            <div class="bg-mist border border-gray-200 rounded-lg p-4">
+              <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Education</p>
+              <ul class="space-y-2 text-sm text-slate">
+                <li><span class="font-mono text-xs text-gold mr-2">2002–07</span>Wellcome Trust PhD, Univ. of Leeds</li>
+                <li><span class="font-mono text-xs text-gold mr-2">1996–00</span>MSci Physics, Imperial College London</li>
+              </ul>
+              <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3 mt-4">Training</p>
+              <ul class="text-sm text-slate">
+                <li><span class="font-mono text-xs text-gold mr-2">2014–15</span>Diploma in Management for Scientists, IE Madrid</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTDOCS -->
+  <section class="py-20 bg-mist border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Postdoctoral Fellows</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="text-xs text-slate font-mono">3 members</span>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Michela Coan -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="avatar w-14 h-14 bg-gradient-to-br from-teal-600 to-teal-800 text-lg flex-shrink-0">MC</div>
+            <div>
+              <p class="font-serif text-lg text-navy-800 leading-tight">Michela Coan</p>
+              <p class="text-xs font-medium text-gold mt-0.5 tracking-wide">DEVELOPMED Postdoctoral Fellow</p>
+            </div>
+          </div>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs text-slate"><span class="font-medium text-ink">BSc</span> Health Biotechnology, Univ. of Udine</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">MSc</span> Biotechnology, Univ. of Trieste</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">PhD</span> Italian National Cancer Institute (CRO) &amp; Univ. of Verona</p>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1.5">Research Focus</p>
+            <p class="text-xs text-slate">lncRNAs in oncology; recently published a review article in <em>Nature Reviews Genetics</em></p>
+          </div>
+          <a href="mailto:michela.coan@ucd.ie" class="mt-3 text-xs link-gold block">michela.coan@ucd.ie</a>
+        </div>
+
+        <!-- Zekiye Altan -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="avatar w-14 h-14 bg-gradient-to-br from-navy-700 to-navy-900 text-lg flex-shrink-0">ZA</div>
+            <div>
+              <p class="font-serif text-lg text-navy-800 leading-tight">Zekiye Altan</p>
+              <p class="text-xs font-medium text-gold mt-0.5 tracking-wide">Postdoctoral Fellow</p>
+              <p class="text-xs text-slate mt-0.5">Funded by Irish Research Council</p>
+            </div>
+          </div>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs text-slate"><span class="font-medium text-ink">BSc</span> Molecular Biology &amp; Genetics, Univ. of Cumhuriyet</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">MSc</span> Medical Biology, Univ. of Gaziantep</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">PhD</span> Medical Biology &amp; Genetics, Univ. of Gaziantep</p>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1.5">Research Focus</p>
+            <p class="text-xs text-slate">lncRNA biology and disease mechanisms</p>
+          </div>
+          <a href="mailto:zekiye.altan@ucd.ie" class="mt-3 text-xs link-gold block">zekiye.altan@ucd.ie</a>
+        </div>
+
+        <!-- Maureen Labbé -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="avatar w-14 h-14 bg-gradient-to-br from-gold-dim to-navy-800 text-lg flex-shrink-0">ML</div>
+            <div>
+              <p class="font-serif text-lg text-navy-800 leading-tight">Maureen Labbé</p>
+              <p class="text-xs font-medium text-gold mt-0.5 tracking-wide">Postdoctoral Fellow</p>
+              <p class="text-xs text-slate mt-0.5">HRB — NeuroAdapt MSCA COFUND</p>
+            </div>
+          </div>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs text-slate"><span class="font-medium text-ink">BSc</span> Biochemistry &amp; Molecular Biology, Nantes Université</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">MSc</span> Biology, Biotechnology &amp; Therapeutic Research, Nantes</p>
+            <p class="text-xs text-slate"><span class="font-medium text-ink">PhD</span> Oncology &amp; Epigenetics, ITMI Lab, Nantes Université</p>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <p class="text-xs font-medium text-slate uppercase tracking-wider mb-1.5">Research Focus</p>
+            <p class="text-xs text-slate">RNA therapeutics for Non-Small Cell Lung Cancer and Parkinson's disease</p>
+          </div>
+          <a href="mailto:maureen.labbe@ucd.ie" class="mt-3 text-xs link-gold block">maureen.labbe@ucd.ie</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PHD STUDENTS -->
+  <section class="py-20 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">PhD Students</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="text-xs text-slate font-mono">12 students</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+
+        <!-- Ai Ming Tham -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-teal-700 to-navy-800 text-base flex-shrink-0">AT</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Ai Ming Tham</p>
+              <p class="text-xs text-slate mt-0.5">Irish Research Council</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc (Hons)</span> Cell &amp; Molecular Biology, UCD</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">CRISPR Prime Editing, driver mutations in lncRNAs</p>
+          </div>
+          <a href="mailto:ai.tham@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">ai.tham@ucdconnect.ie</a>
+        </div>
+
+        <!-- Nivedha Balaji -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-navy-700 to-navy-900 text-base flex-shrink-0">NB</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Nivedha Balaji</p>
+              <p class="text-xs text-slate mt-0.5">SBES, UCD</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Microbiology, Univ. of Madras<br/><span class="font-medium text-ink">MS</span> Biological Sciences, IISER Mohali</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">CRISPR genome editing, lncRNAs, 3D cancer spheroids</p>
+          </div>
+          <a href="mailto:nivedha.balaji@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">nivedha.balaji@ucdconnect.ie</a>
+        </div>
+
+        <!-- Roofiya Koya -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-gold-dim to-navy-800 text-base flex-shrink-0">RK</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Roofiya Koya</p>
+              <p class="text-xs text-slate mt-0.5">SFI CRT Genomics</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">B.Tech</span> Electronics &amp; Comm. Eng., CUSAT<br/><span class="font-medium text-ink">MSc</span> Data Science, UCC</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">CRISPR-Cas9, lncRNA data analysis, precision oncology</p>
+          </div>
+          <a href="mailto:roofiya.koya@ucd.ie" class="mt-2 text-xs link-gold block truncate">roofiya.koya@ucd.ie</a>
+        </div>
+
+        <!-- Yifan Yu -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-teal-600 to-teal-900 text-base flex-shrink-0">YY</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Yifan Yu</p>
+              <p class="text-xs text-slate mt-0.5">Chinese Scholarship Council</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Bioinformatics, Southern Univ. of Science &amp; Technology</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">CRISPR screening, data-driven prioritisation of RNA therapeutic targets</p>
+          </div>
+          <a href="mailto:yifan.yu@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">yifan.yu@ucdconnect.ie</a>
+        </div>
+
+        <!-- Dylan Harvey -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-navy-700 to-teal-800 text-base flex-shrink-0">DH</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Dylan Harvey</p>
+              <p class="text-xs text-slate mt-0.5">Irish Research Council</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Biochemistry, Univ. of Galway<br/><span class="font-medium text-ink">MSc</span> Biological &amp; Biomolecular Science, UCD</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Evolution of lncRNAs</p>
+          </div>
+          <a href="mailto:dylan.harvey@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">dylan.harvey@ucdconnect.ie</a>
+        </div>
+
+        <!-- Sarang Bhutada -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-gold-dim to-teal-800 text-base flex-shrink-0">SB</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Sarang Bhutada</p>
+              <p class="text-xs text-slate mt-0.5">SFI CRT Genomics</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">B.Tech-M.Tech</span> Biological Sciences &amp; Bioengineering, IIT Kanpur</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Discovery and prediction of bioactive lncRNAs</p>
+          </div>
+          <a href="mailto:sarang.bhutada@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">sarang.bhutada@ucdconnect.ie</a>
+        </div>
+
+        <!-- Bhavya Dhaka -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-navy-800 to-gold-dim text-base flex-shrink-0">BD</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Bhavya Dhaka</p>
+              <p class="text-xs text-slate mt-0.5">SFI CRT &amp; MSCA-Integrate</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">MSc</span> Bioinformatics &amp; Applied Biotechnology, IBAB Bangalore</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Single-cell genomics; lncRNA regulation in NSCLC</p>
+          </div>
+          <a href="mailto:bhavya.dhaka@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">bhavya.dhaka@ucdconnect.ie</a>
+        </div>
+
+        <!-- Jack Roban -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-teal-700 to-navy-700 text-base flex-shrink-0">JR</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Jack Roban</p>
+              <p class="text-xs text-slate mt-0.5">SFI CRT Genomics</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Genetics &amp; Cell Biology, DCU<br/><span class="font-medium text-ink">MSc</span> Bioinformatics, Queen's Belfast</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Cancer genomics; lncRNA target prioritisation</p>
+          </div>
+          <a href="mailto:jack.roban@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">jack.roban@ucdconnect.ie</a>
+        </div>
+
+        <!-- Xingyu Guo -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-navy-700 to-gold-dim text-base flex-shrink-0">XG</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Xingyu Guo</p>
+              <p class="text-xs text-slate mt-0.5">Chinese Scholarship Council</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Chinese Traditional Medicine, Shihezi Univ.<br/><span class="font-medium text-ink">MSc</span> Drug Discovery, Univ. of Nottingham</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">CRISPR-Cas9 &amp; ASO therapy in hepatocellular carcinoma</p>
+          </div>
+          <a href="mailto:Xingyu.Guo@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">Xingyu.Guo@ucdconnect.ie</a>
+        </div>
+
+        <!-- Wenjing Li -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-teal-800 to-navy-700 text-base flex-shrink-0">WL</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Wenjing Li</p>
+              <p class="text-xs text-slate mt-0.5">Chinese Scholarship Council</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Biological Science, Univ. of Jinan<br/><span class="font-medium text-ink">MSc</span> Biological &amp; Biomolecular Science, UCD</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Continuous directed evolution for enhanced bioactive lncRNAs</p>
+          </div>
+          <a href="mailto:wenjing.li1@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">wenjing.li1@ucdconnect.ie</a>
+        </div>
+
+        <!-- Marwa Bekhet -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-gold-dim to-teal-700 text-base flex-shrink-0">MB</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Marwa Bekhet</p>
+              <p class="text-xs text-slate mt-0.5">SFI FutureNeuro</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">BSc</span> Molecular &amp; Genetics Eng., Bahcesehir Univ.<br/><span class="font-medium text-ink">MSc</span> Soft Biomechanics, KAIST</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">RNA therapies for neurological &amp; neurodegenerative diseases</p>
+          </div>
+          <a href="mailto:marwa.bekhet@ucdconnect.ie" class="mt-2 text-xs link-gold block truncate">marwa.bekhet@ucdconnect.ie</a>
+        </div>
+
+        <!-- Ilaria Cassotti -->
+        <div class="member-card bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="avatar w-11 h-11 bg-gradient-to-br from-navy-800 to-teal-900 text-base flex-shrink-0">IC</div>
+            <div>
+              <p class="font-serif text-base text-navy-800 leading-tight">Ilaria Cassotti</p>
+              <p class="text-xs text-slate mt-0.5">Visiting PhD Student</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate mb-1"><span class="font-medium text-ink">PhD candidate</span>, University of Milan</p>
+          <div class="border-t border-gray-100 pt-3 mt-3">
+            <p class="text-xs text-slate italic">Functional analysis of coding &amp; non-coding vulnerabilities in pathogenic chromosome amplifications</p>
+          </div>
+          <a href="mailto:ilaria.cassotti@unimi.it" class="mt-2 text-xs link-gold block truncate">ilaria.cassotti@unimi.it</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDING -->
+  <section class="py-16 bg-mist">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-10">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Funding Sources</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">Irish Research Council</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">SFI Centre for Research Training in Genomics Data Science</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">Health Research Board (HRB)</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">Chinese Scholarship Council</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">MSCA COFUND — NeuroAdapt</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">MSCA — Integrate</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">SFI FutureNeuro</span>
+        <span class="text-sm border border-gray-300 rounded-full px-4 py-2 text-slate bg-white">Swiss National Science Foundation (Sinergia)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALUMNI -->
+  <section class="py-20 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Alumni</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="text-xs text-slate font-mono">Former Members</span>
+      </div>
+      <p class="text-slate mb-10 max-w-2xl leading-relaxed">
+        GOLD Lab alumni have gone on to positions in academia, industry, and clinical research
+        across Europe, Asia, and the United States. We are proud of every scientist who trained here.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 px-4 text-xs font-medium tracking-widest uppercase text-slate">Name</th>
+              <th class="text-left py-3 px-4 text-xs font-medium tracking-widest uppercase text-slate">Role</th>
+              <th class="text-left py-3 px-4 text-xs font-medium tracking-widest uppercase text-slate">Period</th>
+              <th class="text-left py-3 px-4 text-xs font-medium tracking-widest uppercase text-slate">Current Position</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Joana Carlevaro-Fita</td>
+              <td class="py-3.5 px-4 text-slate">Postdoctoral Fellow</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2015–2020</td>
+              <td class="py-3.5 px-4 text-slate">Bioinformatics Scientist, Industry</td>
+            </tr>
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Andrés Lanzós</td>
+              <td class="py-3.5 px-4 text-slate">PhD Student</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2014–2018</td>
+              <td class="py-3.5 px-4 text-slate">Postdoctoral Researcher, EPFL Lausanne</td>
+            </tr>
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Carlos Pulido-Quetglas</td>
+              <td class="py-3.5 px-4 text-slate">PhD Student</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2015–2020</td>
+              <td class="py-3.5 px-4 text-slate">Bioinformatics Lead, Biotech Sector</td>
+            </tr>
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Estel Aparicio-Prat</td>
+              <td class="py-3.5 px-4 text-slate">PhD Student</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2013–2017</td>
+              <td class="py-3.5 px-4 text-slate">Research Scientist, CRG Barcelona</td>
+            </tr>
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Sunandini Ramnarayan</td>
+              <td class="py-3.5 px-4 text-slate">PhD Student</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2019–2024</td>
+              <td class="py-3.5 px-4 text-slate">Postdoctoral Fellow, Wellcome Sanger Institute</td>
+            </tr>
+            <tr class="hover:bg-mist transition-colors">
+              <td class="py-3.5 px-4 font-medium text-navy-800">Julien Lagarde</td>
+              <td class="py-3.5 px-4 text-slate">Collaborating Researcher</td>
+              <td class="py-3.5 px-4 font-mono text-xs text-slate">2016–2019</td>
+              <td class="py-3.5 px-4 text-slate">Senior Bioinformatician, CRG Barcelona</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN CTA -->
+  <section class="py-16 bg-navy-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl text-white mb-1">Join the GOLD Lab</h2>
+        <p class="text-gray-300 text-sm">We welcome students, postdocs, and visiting scholars from all backgrounds.</p>
+      </div>
+      <a href="join.html" class="px-6 py-3 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors flex-shrink-0">View Open Positions</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 leading-relaxed max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const border=document.getElementById('nav-border');
+  window.addEventListener('scroll',()=>{border.classList.toggle('border-gray-200',window.scrollY>24);border.classList.toggle('shadow-sm',window.scrollY>24);},{passive:true});
+  const burger=document.getElementById('burger'),mm=document.getElementById('mobile-menu');
+  burger.addEventListener('click',()=>{const open=mm.style.maxHeight&&mm.style.maxHeight!=='0px';mm.style.maxHeight=open?'0px':mm.scrollHeight+'px';mm.style.opacity=open?'0':'1';burger.setAttribute('aria-expanded',!open);document.getElementById('icon-open').classList.toggle('hidden',!open);document.getElementById('icon-close').classList.toggle('hidden',open);});
+</script>
+</body>
+</html>

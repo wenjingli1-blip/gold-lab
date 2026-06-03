@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research | GOLD Lab | UCD</title>
+  <meta name="description" content="Seven research frontiers in lncRNA biology: transposable elements, cancer genomics, CRISPR tools, heart regeneration, diagnostics, and GENCODE annotation." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:  { DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','200':'#adc1e0','700':'#152e57','800':'#0F2040','900':'#091628' },
+            gold:  { DEFAULT:'#B07D2A', light:'#D4A044', lighter:'#EFC96A', dim:'#7A5519', muted:'#F5ECD8' },
+            ink:   '#111827',
+            slate: '#4B5563',
+            mist:  '#F7F8FA',
+          },
+          fontFamily: {
+            serif: ['"DM Serif Display"','Georgia','serif'],
+            sans:  ['"DM Sans"','system-ui','sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family:'DM Sans',system-ui,sans-serif; }
+    h1,h2,h3,h4 { font-family:'DM Serif Display',Georgia,serif; }
+    .nav-link { position:relative; padding-bottom:2px; }
+    .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#B07D2A; transition:width .25s ease; }
+    .nav-link:hover::after,.nav-link.active::after { width:100%; }
+    .dropdown-menu { display:none; position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%); background:#fff; border:1px solid #E5E7EB; border-radius:6px; min-width:180px; box-shadow:0 8px 24px rgba(15,32,64,.10); z-index:50; padding:6px 0; }
+    .dropdown-menu a { display:block; padding:9px 18px; font-size:.875rem; color:#111827; white-space:nowrap; transition:background .15s,color .15s; }
+    .dropdown-menu a:hover { background:#F7F8FA; color:#B07D2A; }
+    .dropdown-trigger:hover .dropdown-menu { display:block; }
+    .link-gold { color:#B07D2A; font-weight:500; }
+    .link-gold:hover { text-decoration:underline; }
+    .filter-btn { cursor:pointer; transition:all .2s; }
+    .filter-btn.active { background:#0F2040; color:#fff; border-color:#0F2040; }
+    .project-item { transition:opacity .3s,transform .3s; }
+    .project-item.hidden-item { display:none; }
+    #mobile-menu { transition:max-height .35s ease,opacity .3s ease; }
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2" aria-label="GOLD Lab home">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link active text-sm font-medium text-navy-800 tracking-wide">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide flex items-center gap-1">Tools<svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+            <div class="dropdown-menu">
+              <a href="tools.html#decko">DECKO</a><a href="tools.html#crispeta">CRISPETa</a><a href="tools.html#caspr">CASPR</a><a href="tools.html#exinator">ExInAtor</a><a href="tools.html#transcistor">TransCistor</a>
+            </div>
+          </div>
+          <a href="team.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Team</a>
+          <a href="publications.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Publications</a>
+          <a href="news.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded hover:bg-navy-800 hover:text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-navy-800 border-b border-gray-50">Research</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 border border-navy-800 rounded text-sm font-medium text-navy-800">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- PAGE HERO -->
+  <div class="bg-navy-900 py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-gold-lighter mb-4">Core Scientific Projects</p>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 max-w-2xl leading-tight">Seven frontiers of<br><em>lncRNA</em> research</h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed">
+        From transposable element biology to clinical diagnostics, our projects span molecular biology,
+        computational genomics, and therapeutic development — united by a focus on long noncoding RNA.
+      </p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="border-b border-gray-200 bg-white sticky top-16 z-40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex flex-wrap gap-2 items-center">
+      <span class="text-xs text-slate font-medium tracking-wide uppercase mr-2">Filter:</span>
+      <button class="filter-btn active text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full" data-filter="all">All Projects</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="computational">Computational</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="experimental">Experimental</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="cancer">Cancer</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="tools">Tools</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="therapeutic">Therapeutic</button>
+    </div>
+  </div>
+
+  <!-- PROJECTS LIST -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 space-y-0" id="projects-list">
+
+      <!-- PROJECT I -->
+      <article id="project-1" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="computational experimental">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project I</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">Transposable elements: address codes for lncRNAs?</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">Computational</span>
+            <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+          </div>
+          <!-- Abstract SVG: TE / RIDL concept -->
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- lncRNA backbone -->
+              <path d="M 30 90 Q 100 50 160 90 Q 220 130 290 90" stroke="#B07D2A" stroke-width="2.5" fill="none"/>
+              <!-- TE inserts -->
+              <rect x="80"  y="60" width="32" height="18" rx="3" fill="#3DBFBF" opacity="0.8"/>
+              <rect x="148" y="82" width="32" height="18" rx="3" fill="#3DBFBF" opacity="0.8"/>
+              <rect x="220" y="74" width="32" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <text x="96"  y="73" font-size="7" fill="white" text-anchor="middle" font-family="monospace">RIDL</text>
+              <text x="164" y="95" font-size="7" fill="white" text-anchor="middle" font-family="monospace">RIDL</text>
+              <text x="236" y="87" font-size="7" fill="white" text-anchor="middle" font-family="monospace">TE</text>
+              <!-- nucleus outline -->
+              <ellipse cx="160" cy="90" rx="130" ry="65" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <!-- labels -->
+              <text x="30" y="140" font-size="9" fill="#B07D2A" font-family="monospace">lncRNA exon</text>
+              <text x="180" y="140" font-size="9" fill="#3DBFBF" font-family="monospace">RIDL / TE insert</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            The sequence domains underlying long noncoding RNA (lncRNA) activities remain largely unknown.
+            We have proposed that these domains can originate from neofunctionalised fragments of
+            <strong class="text-ink font-medium">transposable elements (TEs)</strong>, otherwise known as
+            <strong class="text-ink font-medium">RIDLs</strong> — Repeat Insertion Domains of Long Noncoding RNA.
+            A small but growing number of RIDLs have been identified.
+          </p>
+          <p class="text-slate leading-relaxed mb-4">
+            We are interested in identifying RIDLs and understanding how they contribute to lncRNAs'
+            biological activity. An important challenge is to discern true RIDLs against a far more
+            numerous background of neutrally-evolving, non-functional TEs. We have recently found evidence
+            that a subset of TE types experience evolutionary selection in the context of lncRNA exons,
+            and that their host lncRNAs tend to be functionally validated and associated with disease.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            An emerging question in the lncRNA field is how specific subcellular locations of lncRNAs are
+            encoded in their primary sequence. We hypothesised that RIDLs may play a role in directing
+            lncRNAs to subcellular compartments. We use global localisation data from human cell lines to
+            identify a role for evolutionarily-conserved <span class="font-mono text-sm text-navy-800">L2b</span>,
+            <span class="font-mono text-sm text-navy-800">MIRb</span> and
+            <span class="font-mono text-sm text-navy-800">MIRc</span> elements in regulating nuclear/cytoplasmic
+            distribution of lncRNAs.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5 space-y-2">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Key References</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">The RIDL hypothesis</span> — Johnson and Guigó (2014)</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">TEs and Localisation</span> — Carlevaro-Fita et al. (2019)</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT II -->
+      <article id="project-2" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="computational cancer">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project II</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">LncRNAs that drive cancer</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full font-medium">Cancer</span>
+            <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">Computational</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- genome track -->
+              <rect x="20" y="80" width="280" height="8" rx="2" fill="rgba(255,255,255,0.08)"/>
+              <!-- somatic mutations (bars) -->
+              <rect x="55"  y="60" width="4" height="28" rx="1" fill="#B07D2A" opacity="0.9"/>
+              <rect x="90"  y="50" width="4" height="38" rx="1" fill="#B07D2A"/>
+              <rect x="130" y="65" width="4" height="23" rx="1" fill="#B07D2A" opacity="0.7"/>
+              <rect x="165" y="45" width="4" height="43" rx="1" fill="#ef4444" opacity="0.9"/>
+              <rect x="200" y="58" width="4" height="30" rx="1" fill="#B07D2A" opacity="0.8"/>
+              <rect x="240" y="62" width="4" height="26" rx="1" fill="#B07D2A" opacity="0.6"/>
+              <!-- driver highlight -->
+              <rect x="158" y="38" width="18" height="58" rx="3" fill="#ef4444" opacity="0.15" stroke="#ef4444" stroke-width="1"/>
+              <text x="167" y="108" font-size="7" fill="#ef4444" text-anchor="middle" font-family="monospace">driver</text>
+              <!-- ExInAtor label -->
+              <text x="160" y="150" font-size="9" fill="#B07D2A" text-anchor="middle" font-family="monospace">ExInAtor Pipeline</text>
+              <text x="160" y="162" font-size="7.5" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="monospace">somatic mutation analysis</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            Tumours develop through the acquisition of driver mutations that enable cells to replicate
+            uncontrollably and invade other sites. Genes containing driver mutations are attractive
+            therapeutic targets, but it remains unknown whether these can include long noncoding RNAs.
+          </p>
+          <p class="text-slate leading-relaxed mb-4">
+            As part of our work in the <strong class="text-ink font-medium">International Cancer Genome
+            Consortium's PCAWG</strong> (PanCancer Analysis of Whole Genomes) project, we have developed
+            <strong class="text-ink font-medium">ExInAtor</strong>, a bioinformatic pipeline to identify
+            driver lncRNAs using somatic mutations from whole tumour genomes. ExInAtor compares the
+            observed mutation rate in lncRNA exons against a background model to identify candidate
+            driver lncRNAs with statistical confidence.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            This work positions lncRNAs as a new, largely unexplored class of cancer driver genes —
+            with direct implications for precision oncology target selection and therapeutic development.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Key Reference</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">ExInAtor</span> — Lanzós A. et al, <em>Scientific Reports</em> (2017)</p>
+          </div>
+          <div class="mt-4 flex items-center gap-3">
+            <span class="text-xs font-mono bg-navy-50 text-navy-700 px-3 py-1.5 rounded border border-navy-100">ExInAtor</span>
+            <span class="text-xs text-slate">Available via GOLD Lab tools</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT III -->
+      <article id="project-3" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="tools experimental computational">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project III</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">CRISPR-Cas9 tools for lncRNAs</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full font-medium">Tools</span>
+            <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- DNA double helix simplified -->
+              <path d="M 40 40 Q 80 70 120 40 Q 160 10 200 40 Q 240 70 280 40" stroke="#3DBFBF" stroke-width="2" fill="none"/>
+              <path d="M 40 80 Q 80 50 120 80 Q 160 110 200 80 Q 240 50 280 80" stroke="#3DBFBF" stroke-width="2" fill="none"/>
+              <!-- sgRNA scissors -->
+              <path d="M 155 105 L 165 75" stroke="#B07D2A" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 165 105 L 155 75" stroke="#B07D2A" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="160" cy="75" r="5" fill="#B07D2A"/>
+              <!-- cut mark -->
+              <path d="M 145 60 L 175 60" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <!-- labels -->
+              <text x="160" y="130" font-size="8"  fill="#3DBFBF" text-anchor="middle" font-family="monospace">DECKO / CRISPETa</text>
+              <text x="160" y="143" font-size="7.5" fill="#B07D2A" text-anchor="middle" font-family="monospace">paired sgRNA deletion</text>
+              <text x="160" y="168" font-size="7" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="monospace">CASPR · single-gene → genome-wide</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            CRISPR-Cas9 is a powerful and versatile genome-editing tool that has revolutionised the field
+            of long noncoding RNA research. We have developed a suite of tools for single-gene and
+            high-throughput functional analysis of lncRNAs.
+          </p>
+          <div class="space-y-4 mb-6">
+            <div class="border border-gray-200 rounded-lg p-5">
+              <div class="flex items-start gap-3">
+                <span class="font-mono text-sm font-semibold text-navy-800 bg-navy-50 px-2.5 py-1 rounded mt-0.5 flex-shrink-0">DECKO</span>
+                <div>
+                  <p class="text-sm font-medium text-ink mb-1">Dual Excision CRISPR Knockout</p>
+                  <p class="text-sm text-slate leading-relaxed">A simple and scalable vector system that delivers paired sgRNAs for deletion of lncRNAs or other genomic elements. Scalable from single-gene to genome-wide experiments.</p>
+                </div>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-5">
+              <div class="flex items-start gap-3">
+                <span class="font-mono text-sm font-semibold text-navy-800 bg-navy-50 px-2.5 py-1 rounded mt-0.5 flex-shrink-0">CRISPETa</span>
+                <div>
+                  <p class="text-sm font-medium text-ink mb-1">CRISPR Paired Excision Tool</p>
+                  <p class="text-sm text-slate leading-relaxed">A bioinformatic design tool for paired sgRNAs, accessible to non-specialists and bioinformaticians alike. Supports both single-gene and genome-wide deletion experiments.</p>
+                </div>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-5">
+              <div class="flex items-start gap-3">
+                <span class="font-mono text-sm font-semibold text-navy-800 bg-navy-50 px-2.5 py-1 rounded mt-0.5 flex-shrink-0">CASPR</span>
+                <div>
+                  <p class="text-sm font-medium text-ink mb-1">CRISPR Analysis for Single and Paired RNA-guides</p>
+                  <p class="text-sm text-slate leading-relaxed">Our most recent tool: an end-to-end analysis pipeline for CRISPR screen analysis, enabling systematic functional interrogation of the lncRNA genome.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5 space-y-2">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Key References</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">DECKO</span> — Aparicio-Prat E. et al, <em>BMC Genomics</em> (2015)</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">CRISPETa</span> — Pulido-Quetglas C. et al, <em>PLOS Computational Biology</em> (2017)</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT IV -->
+      <article id="project-4" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="experimental therapeutic">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project IV</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">LncRNA &amp; Heart Regeneration</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full font-medium">Therapeutic</span>
+            <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- Heart shape -->
+              <path d="M 160 140 C 100 100 60 80 60 55 C 60 35 80 25 100 25 C 120 25 140 40 160 60 C 180 40 200 25 220 25 C 240 25 260 35 260 55 C 260 80 220 100 160 140Z" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-width="1.5"/>
+              <!-- RNA strands overlaid -->
+              <path d="M 100 80 Q 130 60 160 80 Q 190 100 220 80" stroke="#B07D2A" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+              <path d="M 100 95 Q 130 75 160 95 Q 190 115 220 95" stroke="#3DBFBF" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+              <!-- Pulse line -->
+              <path d="M 30 155 L 80 155 L 95 135 L 110 170 L 125 130 L 140 165 L 155 155 L 290 155" stroke="#ef4444" stroke-width="1.5" fill="none" opacity="0.7"/>
+              <text x="160" y="170" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="monospace">cardiac lncRNA network</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            Heart regeneration is a biological process of utmost importance to medicine. It is known that
+            lncRNAs play critical roles in the molecular networks mediating the response of cardiac cells
+            to damage, such as that caused by myocardial infarction. We use a variety of strategies to
+            identify lncRNAs involved in this process.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            This project is part of an international collaborative effort combining experimental cardiac
+            biology with our lncRNA discovery and functional analysis expertise, aiming to identify novel
+            RNA-based therapeutic targets for heart disease.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5 mb-4">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Collaborators</p>
+            <ul class="space-y-1.5 text-sm text-slate">
+              <li><strong class="text-ink font-medium">Thierry Pedrazzini</strong> — CHUV, Lausanne</li>
+              <li><strong class="text-ink font-medium">Raffaela Santoro</strong> — University of Zurich</li>
+              <li><strong class="text-ink font-medium">Mauro Giacca</strong> — King's College, London</li>
+            </ul>
+          </div>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Funding</p>
+            <p class="text-sm text-slate">Swiss National Science Foundation — <em>Sinergia</em> programme: Mending Broken Hearts.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT V -->
+      <article id="project-5" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="computational experimental">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project V</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">LncRNA Characterisation</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">Computational</span>
+            <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- Cell nucleus -->
+              <ellipse cx="160" cy="90" rx="90" ry="65" fill="rgba(15,32,64,0.6)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+              <!-- Cytoplasm zone -->
+              <ellipse cx="160" cy="90" rx="140" ry="78" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+              <!-- Nuclear lncRNA (teal, inside) -->
+              <path d="M 100 80 Q 130 65 160 80" stroke="#3DBFBF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Cytoplasmic lncRNA (gold, outside) -->
+              <path d="M 200 115 Q 230 100 260 115" stroke="#B07D2A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- arrow: nuclear → cytoplasmic -->
+              <path d="M 170 90 L 195 112" stroke="rgba(255,255,255,0.3)" stroke-width="1" marker-end="url(#arr)"/>
+              <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="rgba(255,255,255,0.4)"/></marker></defs>
+              <text x="120" y="72"  font-size="7.5" fill="#3DBFBF" text-anchor="middle" font-family="monospace">nuclear</text>
+              <text x="230" y="108" font-size="7.5" fill="#B07D2A" text-anchor="middle" font-family="monospace">cytoplasmic</text>
+              <text x="160" y="165" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="monospace">subcellular localisation</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            To date only <strong class="text-ink font-medium">2% of lncRNAs</strong> has been functionally
+            characterised, and little is known about their molecular mechanisms and transcript properties.
+            Bioinformatic tools applied to the protein-coding world are generally ineffective for lncRNAs,
+            complicating their classification and prediction of functions.
+          </p>
+          <p class="text-slate leading-relaxed mb-4">
+            A major bottleneck is the lack of a framework for categorising lncRNAs and understanding how
+            molecular functions are encoded in their sequence. In this context, we are especially focused
+            on characterisation through the study of their
+            <strong class="text-ink font-medium">subcellular localisation</strong> and
+            <strong class="text-ink font-medium">embedded repeat elements</strong>.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            We leverage global localisation datasets from human cell lines to map the determinants of
+            nuclear versus cytoplasmic lncRNA distribution, identifying sequence signatures — including
+            RIDL elements — that encode subcellular addresses.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5 space-y-2">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Key References</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">The RIDL hypothesis</span> — Johnson and Guigó (2014)</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">Repeats and subcellular localisation</span> — Carlevaro-Fita et al. (2019)</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT VI -->
+      <article id="project-6" class="project-item border-b border-gray-200 py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="therapeutic experimental">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project VI</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">LncRNA &amp; Diagnostics</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full font-medium">Therapeutic</span>
+            <span class="text-xs bg-navy-50 text-navy-700 px-2.5 py-1 rounded-full font-medium">Experimental</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- Waveform: transcriptome snapshot -->
+              <polyline points="20,120 45,100 60,130 80,80 100,110 120,70 140,95 165,55 185,90 205,75 225,105 245,65 265,100 285,85 300,110" stroke="#3DBFBF" stroke-width="1.5" fill="none" opacity="0.7"/>
+              <!-- Highlighted biomarker peak -->
+              <polyline points="155,120 165,55 175,120" stroke="#B07D2A" stroke-width="2.5" fill="none"/>
+              <circle cx="165" cy="55" r="5" fill="#B07D2A"/>
+              <text x="165" y="48" font-size="7" fill="#B07D2A" text-anchor="middle" font-family="monospace">biomarker</text>
+              <!-- Axis -->
+              <line x1="20" y1="140" x2="300" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <text x="160" y="165" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="monospace">RNA-seq transcriptome profile</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            We are excited about the possibility of developing rapid and cheap diagnostics for early-stage
+            diseases based on RNA profiles. The RNA content, or
+            <strong class="text-ink font-medium">transcriptome</strong>, of an organ presents a dynamic
+            and data-rich snapshot of its physiological state. RNA sequencing therefore affords the
+            possibility of rapid and cheap diagnostics of early-stage disease.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            In a collaborative project funded by <strong class="text-ink font-medium">La Marató de TV3</strong>,
+            we are developing new RNA biomarkers in cardiac disease — with the goal of enabling earlier,
+            non-invasive diagnosis of cardiac insufficiency through lncRNA expression signatures.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Collaborator</p>
+            <p class="text-sm text-slate">
+              <strong class="text-ink font-medium">Josep Comin-Colet</strong> — Director, Cardiac Insufficiency
+              Program, Hospital del Mar, Barcelona
+            </p>
+            <p class="text-sm text-slate mt-2"><em>Funded by La Marató de TV3</em></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT VII -->
+      <article id="project-7" class="project-item py-14 lg:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start" data-tags="computational">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-mono font-medium tracking-[0.18em] text-gold uppercase mb-3">Project VII</p>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">GENCODE Annotation</h2>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">Computational</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-gray-100 bg-navy-900 aspect-video flex items-center justify-center">
+            <svg viewBox="0 0 320 180" class="w-full h-full" fill="none" aria-hidden="true">
+              <rect width="320" height="180" fill="#091628"/>
+              <!-- Chromosome track -->
+              <rect x="20" y="75" width="280" height="12" rx="6" fill="rgba(255,255,255,0.07)"/>
+              <!-- Gene annotations (coloured blocks) -->
+              <rect x="35"  y="72" width="40" height="18" rx="3" fill="#3DBFBF" opacity="0.7"/>
+              <rect x="90"  y="72" width="25" height="18" rx="3" fill="#B07D2A" opacity="0.8"/>
+              <rect x="130" y="72" width="55" height="18" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <rect x="200" y="72" width="30" height="18" rx="3" fill="#B07D2A" opacity="0.7"/>
+              <rect x="245" y="72" width="45" height="18" rx="3" fill="#3DBFBF" opacity="0.8"/>
+              <!-- Long-read sequencing trace -->
+              <path d="M 20 110 Q 80 100 140 110 Q 200 120 260 108 Q 280 104 300 110" stroke="#B07D2A" stroke-width="1.5" fill="none" stroke-dasharray="5 3" opacity="0.7"/>
+              <text x="35"  y="69" font-size="6.5" fill="#3DBFBF" font-family="monospace">lncRNA</text>
+              <text x="90"  y="69" font-size="6.5" fill="#B07D2A" font-family="monospace">mRNA</text>
+              <text x="160" y="125" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="monospace">Capture Long-Read Sequencing (CLS)</text>
+              <text x="160" y="162" font-size="8" fill="#B07D2A" text-anchor="middle" font-family="monospace">GENCODE · since 2010</text>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-slate leading-relaxed mb-4">
+            Genomics depends on the availability of high-quality annotations — curated collections of genes.
+            The worldwide reference annotation of lncRNAs in human and mouse is managed by
+            <strong class="text-ink font-medium">GENCODE</strong>, a collaboration led by the Wellcome Trust
+            Sanger Institute and funded by the National Human Genome Research Institute (NHGRI).
+          </p>
+          <p class="text-slate leading-relaxed mb-4">
+            Since 2010, Rory Johnson has contributed to this project, through the first landmark paper
+            (Derrien, Johnson et al.) and more recently through the development of
+            <strong class="text-ink font-medium">Capture Long Read Sequencing (CLS)</strong> to improve
+            and expand lncRNA annotations.
+          </p>
+          <p class="text-slate leading-relaxed mb-6">
+            CLS applies targeted capture to long-read sequencing platforms, dramatically improving the
+            completeness and accuracy of lncRNA transcript models in the GENCODE reference — a resource
+            used by researchers worldwide.
+          </p>
+          <div class="bg-mist border border-gray-200 rounded-lg p-5 space-y-2">
+            <p class="text-xs font-medium tracking-widest uppercase text-slate mb-3">Key References</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">GENCODE lncRNA annotation</span> — Derrien, Johnson et al.</p>
+            <p class="text-sm text-slate"><span class="text-ink font-medium">Capture Long Read Sequencing</span> — Lagarde et al.</p>
+          </div>
+          <div class="mt-4">
+            <a href="https://www.gencodegenes.org" target="_blank" rel="noopener" class="link-gold text-sm inline-flex items-center gap-1.5">
+              Visit GENCODE ↗
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /projects-list -->
+  </section>
+
+  <!-- JOIN CTA -->
+  <section class="py-16 bg-navy-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl text-white mb-1">Interested in our research?</h2>
+        <p class="text-gray-300 text-sm">We welcome ambitious students and postdocs to join the team.</p>
+      </div>
+      <div class="flex gap-4 flex-shrink-0">
+        <a href="join.html"    class="px-5 py-2.5 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors">Join Us</a>
+        <a href="team.html"   class="px-5 py-2.5 border border-white/30 text-white text-sm font-medium rounded hover:border-white hover:bg-white/10 transition-all">Meet the Team</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400" role="contentinfo">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 leading-relaxed max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Tools</p>
+        <ul class="space-y-2.5 text-sm mb-6">
+          <li><a href="#" class="hover:text-white transition-colors">DECKO</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">CRISPETa</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">CASPR</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">ExInAtor</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">TransCistor</a></li>
+        </ul>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-3">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const border = document.getElementById('nav-border');
+  window.addEventListener('scroll', () => {
+    border.classList.toggle('border-gray-200', window.scrollY > 24);
+    border.classList.toggle('shadow-sm', window.scrollY > 24);
+  }, { passive:true });
+  // Burger
+  const burger = document.getElementById('burger');
+  const mm     = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    const open = mm.style.maxHeight && mm.style.maxHeight !== '0px';
+    mm.style.maxHeight = open ? '0px' : mm.scrollHeight + 'px';
+    mm.style.opacity   = open ? '0' : '1';
+    burger.setAttribute('aria-expanded', !open);
+    document.getElementById('icon-open').classList.toggle('hidden', !open);
+    document.getElementById('icon-close').classList.toggle('hidden', open);
+  });
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.project-item').forEach(item => {
+        const tags = item.dataset.tags || '';
+        item.classList.toggle('hidden-item', f !== 'all' && !tags.includes(f));
+      });
+    });
+  });
+</script>
+</body>
+</html>

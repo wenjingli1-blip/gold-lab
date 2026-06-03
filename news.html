@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News | GOLD Lab | UCD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','700':'#152e57','800':'#0F2040','900':'#091628'},gold:{DEFAULT:'#B07D2A',light:'#D4A044',lighter:'#EFC96A',dim:'#7A5519',muted:'#F5ECD8'},ink:'#111827',slate:'#4B5563',mist:'#F7F8FA'},fontFamily:{serif:['"DM Serif Display"','Georgia','serif'],sans:['"DM Sans"','system-ui','sans-serif']}}}}
+  </script>
+  <style>
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;}
+    .nav-link{position:relative;padding-bottom:2px;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#B07D2A;transition:width .25s ease;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #E5E7EB;border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(15,32,64,.10);z-index:50;padding:6px 0;}
+    .dropdown-menu a{display:block;padding:9px 18px;font-size:.875rem;color:#111827;white-space:nowrap;transition:background .15s,color .15s;}
+    .dropdown-menu a:hover{background:#F7F8FA;color:#B07D2A;}
+    .dropdown-trigger:hover .dropdown-menu{display:block;}
+    .link-gold{color:#B07D2A;font-weight:500;}
+    .link-gold:hover{text-decoration:underline;}
+    .news-card{transition:box-shadow .25s,transform .25s;}
+    .news-card:hover{box-shadow:0 8px 32px rgba(15,32,64,.1);transform:translateY(-2px);}
+    .filter-btn.active{background:#0F2040;color:#fff;border-color:#0F2040;}
+    .filter-btn{transition:all .2s;cursor:pointer;}
+    .news-item.hidden-item{display:none;}
+    #mobile-menu{transition:max-height .35s ease,opacity .3s ease;}
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide flex items-center gap-1">Tools<svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+            <div class="dropdown-menu"><a href="tools.html#decko">DECKO</a><a href="tools.html#crispeta">CRISPETa</a><a href="tools.html#caspr">CASPR</a><a href="tools.html#exinator">ExInAtor</a><a href="tools.html#transcistor">TransCistor</a></div>
+          </div>
+          <a href="team.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Team</a>
+          <a href="publications.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Publications</a>
+          <a href="news.html"         class="nav-link active text-sm font-medium text-navy-800 tracking-wide">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded hover:bg-navy-800 hover:text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Research</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-navy-800 border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 border border-navy-800 rounded text-sm font-medium text-navy-800">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- HERO -->
+  <div class="bg-navy-900 py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-gold-lighter mb-4">Updates &amp; Announcements</p>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 leading-tight">News from the Lab</h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed">Publications, team milestones, tool releases, media coverage, and announcements from the GOLD Lab at UCD.</p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="border-b border-gray-200 bg-white sticky top-16 z-40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex flex-wrap gap-2 items-center">
+      <span class="text-xs text-slate font-medium tracking-wide uppercase mr-2">Category:</span>
+      <button class="filter-btn active text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full" data-filter="all">All</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="publication">Publications</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="team">Team News</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="tool">Tool Releases</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="media">Media</button>
+      <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="award">Awards</button>
+    </div>
+  </div>
+
+  <!-- FEATURED NEWS -->
+  <section class="py-16 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-10">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Featured</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+      <!-- Large featured card -->
+      <div class="news-item news-card border border-gray-200 rounded-xl overflow-hidden grid lg:grid-cols-2 mb-10" data-tags="publication">
+        <div class="bg-navy-900 aspect-video lg:aspect-auto relative overflow-hidden">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 600 340" fill="none" aria-hidden="true">
+            <rect width="600" height="340" fill="#091628"/>
+            <circle cx="300" cy="170" r="130" stroke="#B07D2A" stroke-width="1.5" stroke-dasharray="8 5" opacity="0.5"/>
+            <circle cx="300" cy="170" r="85"  stroke="#3DBFBF" stroke-width="1.5" stroke-dasharray="8 5" opacity="0.4"/>
+            <circle cx="300" cy="170" r="40"  fill="rgba(176,125,42,0.15)" stroke="#B07D2A" stroke-width="2"/>
+            <path d="M 170 170 Q 235 100 300 170 Q 365 240 430 170" stroke="#B07D2A" stroke-width="2" fill="none"/>
+            <path d="M 170 185 Q 235 115 300 185 Q 365 255 430 185" stroke="#3DBFBF" stroke-width="2" fill="none" stroke-dasharray="6 3"/>
+            <circle cx="300" cy="170" r="8" fill="#B07D2A" opacity="0.9"/>
+            <text x="300" y="310" font-size="12" fill="#B07D2A" text-anchor="middle" font-family="monospace" opacity="0.7">Nature Reviews Genetics · 2024</text>
+          </svg>
+        </div>
+        <div class="p-8 lg:p-10 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs bg-gold-muted text-gold-dim px-2.5 py-1 rounded-full font-medium">New Publication</span>
+            <time class="text-xs text-slate">May 3, 2024</time>
+          </div>
+          <h2 class="font-serif text-2xl lg:text-3xl text-navy-800 mb-4 leading-snug">
+            New Review: Long noncoding RNAs in Oncology
+          </h2>
+          <p class="text-slate leading-relaxed mb-6">
+            Michela Coan has published a landmark review article on long noncoding RNAs in oncology
+            in <em>Nature Reviews Genetics</em>. The review covers lncRNA classification, mechanisms of
+            dysregulation in tumours, and the emerging landscape of RNA-targeting therapeutics.
+          </p>
+          <a href="publications.html" class="link-gold text-sm inline-flex items-center gap-2">
+            Read the full publication
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL NEWS GRID -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-10">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">All Updates</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="news-grid">
+
+        <!-- 1 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="media">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#0F2040"/>
+              <path d="M 50 160 Q 130 80 200 120 Q 270 160 350 60" stroke="#B07D2A" stroke-width="2" fill="none"/>
+              <circle cx="200" cy="120" r="8" fill="#B07D2A" opacity="0.8"/>
+              <text x="200" y="195" font-size="9" fill="#B07D2A" text-anchor="middle" font-family="monospace">NCCR Retreat 2025</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-navy-800/90 text-white px-2 py-1 rounded font-mono">Presentation</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">Jan 29, 2025</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug group-hover:text-gold">Rory Johnson presents at the NCCR Retreat</h3>
+            <p class="text-slate text-sm leading-relaxed">Our PI presented the lab's latest research advancements at the NCCR Retreat, showcasing recent progress in lncRNA therapeutics and CRISPR screening tools.</p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="award">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#091628"/>
+              <!-- leaf motif -->
+              <circle cx="200" cy="112" r="70" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.5"/>
+              <path d="M 140 112 Q 200 60 260 112 Q 200 164 140 112Z" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1.5"/>
+              <text x="200" y="190" font-size="9" fill="#22c55e" text-anchor="middle" font-family="monospace">Green Lab Certified</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-green-700/90 text-white px-2 py-1 rounded font-mono">Award</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">Aug 27, 2024</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug">GOLD Lab receives Green Lab Certification</h3>
+            <p class="text-slate text-sm leading-relaxed">We are delighted to announce that the GOLD Lab has received a Green Lab Certification, recognising our efforts to reduce the environmental impact of laboratory operations.</p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="tool">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#0F2040"/>
+              <rect x="50"  y="80" width="70" height="28" rx="4" fill="#3DBFBF" opacity="0.7"/>
+              <rect x="165" y="80" width="70" height="28" rx="4" fill="#B07D2A" opacity="0.7"/>
+              <rect x="280" y="80" width="70" height="28" rx="4" fill="#3DBFBF" opacity="0.5"/>
+              <line x1="120" y1="94" x2="165" y2="94" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#a)"/>
+              <line x1="235" y1="94" x2="280" y2="94" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#a)"/>
+              <defs><marker id="a" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="rgba(255,255,255,0.4)"/></marker></defs>
+              <text x="85"  y="120" font-size="7.5" fill="#3DBFBF" text-anchor="middle" font-family="monospace">lncRNA</text>
+              <text x="200" y="120" font-size="7.5" fill="#B07D2A" text-anchor="middle" font-family="monospace">cis-reg</text>
+              <text x="315" y="120" font-size="7.5" fill="#3DBFBF" text-anchor="middle" font-family="monospace">target</text>
+              <text x="200" y="195" font-size="9" fill="#B07D2A" text-anchor="middle" font-family="monospace">TransCistor Pipeline</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-teal-700/90 text-white px-2 py-1 rounded font-mono">Tool Release</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">Mar 15, 2024</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug">Introducing TransCistor</h3>
+            <p class="text-slate text-sm leading-relaxed">TransCistor enables efficient large-scale identification of cis-regulatory lncRNAs. Long noncoding RNAs have emerged as crucial regulators in the intricate landscape of gene expression.</p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="team">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#091628"/>
+              <circle cx="130" cy="112" r="35" fill="rgba(176,125,42,0.15)" stroke="#B07D2A" stroke-width="1.5"/>
+              <circle cx="200" cy="112" r="35" fill="rgba(61,191,191,0.15)" stroke="#3DBFBF" stroke-width="1.5"/>
+              <circle cx="270" cy="112" r="35" fill="rgba(176,125,42,0.1)" stroke="#B07D2A" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="200" y="190" font-size="9" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="monospace">Genomics England 2023</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-purple-700/90 text-white px-2 py-1 rounded font-mono">Team News</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">Aug 18, 2023</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug">Sunandini profiled by Genomics England</h3>
+            <p class="text-slate text-sm leading-relaxed">PhD student Sunandini Ramnarayan was recently profiled for the Genomics England (GEL) 'Research on the Rise' series, highlighting her computational lncRNA work.</p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="team">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#0F2040"/>
+              <!-- mortar board -->
+              <rect x="170" y="100" width="60" height="8" rx="2" fill="#B07D2A" opacity="0.9"/>
+              <polygon points="200,75 240,95 200,115 160,95" fill="#B07D2A" opacity="0.7"/>
+              <line x1="240" y1="95" x2="240" y2="130" stroke="#B07D2A" stroke-width="2" opacity="0.8"/>
+              <circle cx="240" cy="133" r="5" fill="#B07D2A" opacity="0.8"/>
+              <text x="200" y="175" font-size="9" fill="#B07D2A" text-anchor="middle" font-family="monospace">PhD Defence · 2023</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-purple-700/90 text-white px-2 py-1 rounded font-mono">Team News</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">2023</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug">Lab members successfully defend their theses</h3>
+            <p class="text-slate text-sm leading-relaxed">We congratulate multiple GOLD Lab PhD students who successfully defended their doctoral theses over the past year, going on to postdoctoral positions and industry roles.</p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="news-item news-card border border-gray-200 rounded-xl overflow-hidden" data-tags="media">
+          <div class="bg-navy-900 aspect-video relative overflow-hidden">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 225" fill="none" aria-hidden="true">
+              <rect width="400" height="225" fill="#091628"/>
+              <!-- podcast waveform -->
+              <rect x="60"  y="85"  width="14" height="55" rx="3" fill="#B07D2A" opacity="0.6"/>
+              <rect x="84"  y="70"  width="14" height="85" rx="3" fill="#B07D2A" opacity="0.8"/>
+              <rect x="108" y="90"  width="14" height="45" rx="3" fill="#B07D2A" opacity="0.6"/>
+              <rect x="132" y="60"  width="14" height="105" rx="3" fill="#3DBFBF" opacity="0.8"/>
+              <rect x="156" y="80"  width="14" height="65" rx="3" fill="#B07D2A" opacity="0.7"/>
+              <rect x="180" y="95"  width="14" height="35" rx="3" fill="#B07D2A" opacity="0.5"/>
+              <rect x="204" y="72"  width="14" height="81" rx="3" fill="#3DBFBF" opacity="0.7"/>
+              <rect x="228" y="88"  width="14" height="49" rx="3" fill="#B07D2A" opacity="0.6"/>
+              <rect x="252" y="68"  width="14" height="89" rx="3" fill="#B07D2A" opacity="0.8"/>
+              <rect x="276" y="82"  width="14" height="61" rx="3" fill="#B07D2A" opacity="0.5"/>
+              <rect x="300" y="90"  width="14" height="45" rx="3" fill="#3DBFBF" opacity="0.6"/>
+              <text x="200" y="195" font-size="9" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="monospace">Active Motif Epigenetics Podcast</text>
+            </svg>
+            <span class="absolute top-3 left-3 text-xs bg-orange-700/90 text-white px-2 py-1 rounded font-mono">Media</span>
+          </div>
+          <div class="p-6">
+            <time class="text-xs text-slate tracking-wide">Feb 23, 2024</time>
+            <h3 class="font-serif text-lg text-navy-800 mt-2 mb-3 leading-snug">Rory Johnson on the Active Motif Epigenetics Podcast</h3>
+            <p class="text-slate text-sm leading-relaxed">Rory Johnson joined Dr. Stefan Dillinger to discuss the lncRNA Xist, X chromosome inactivation, and SPRITE — mapping multi-way contacts in nuclear organisation.</p>
+            <a href="https://www.youtube.com/watch?v=CdW5EsI0BjE" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1.5 text-sm link-gold">Listen to interview ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OLDER ANNOUNCEMENTS TIMELINE -->
+  <section class="py-16 lg:py-20 bg-mist border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-20">
+        <div class="lg:col-span-3">
+          <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold mb-3">Lab Milestones</p>
+          <div class="h-px w-8 bg-gold mb-4"></div>
+          <h2 class="font-serif text-2xl text-navy-800">Announcements Archive</h2>
+        </div>
+        <div class="lg:col-span-9 divide-y divide-gray-200">
+          <div class="py-5 first:pt-0 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2024</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">GOLD Lab receives Green Lab Certification</p>
+              <p class="text-sm text-slate mt-1">Awarded to labs demonstrating sustainable practices in energy use, consumables, and waste management.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2024</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">TransCistor tool published and released</p>
+              <p class="text-sm text-slate mt-1">Our cis-regulatory lncRNA identification pipeline is now publicly available via GitHub and Bioconda.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2023</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">Sunandini Ramnarayan featured by Genomics England</p>
+              <p class="text-sm text-slate mt-1">Highlighted in the 'Research on the Rise' series for her work on computational identification of functional lncRNAs.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2022</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">CASPR pipeline released on GitHub</p>
+              <p class="text-sm text-slate mt-1">End-to-end CRISPR screen analysis tool for single and paired sgRNA libraries targeting lncRNAs.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2021</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">Rory Johnson joins University College Dublin</p>
+              <p class="text-sm text-slate mt-1">GOLD Lab relocates from the University of Bern to UCD School of Biology &amp; Environmental Science, marking a new chapter in the lab's history.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2020</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">PCAWG Pan-Cancer lncRNA study published</p>
+              <p class="text-sm text-slate mt-1">Contribution to the landmark International Cancer Genome Consortium whole-genome analysis, identifying candidate driver lncRNAs across 38 cancer types.</p>
+            </div>
+          </div>
+          <div class="py-5 flex gap-5 items-start">
+            <time class="text-xs text-slate font-mono tracking-wide mt-0.5 w-20 flex-shrink-0">2016</time>
+            <div>
+              <p class="text-sm font-medium text-navy-800">NCCR RNA &amp; Disease Junior Group Leader appointment</p>
+              <p class="text-sm text-slate mt-1">Rory Johnson appointed as Junior Group Leader within the Swiss National Centre of Competence in Research on RNA &amp; Disease, based in Bern.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA & PRESS -->
+  <section class="py-16 lg:py-20 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-12">
+        <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold">Media &amp; Press</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <a href="https://www.youtube.com/watch?v=CdW5EsI0BjE" target="_blank" rel="noopener"
+           class="group p-5 border border-gray-200 rounded-xl hover:border-gold/40 hover:shadow-sm transition-all bg-white">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full font-medium">Podcast</span>
+            <time class="text-xs text-slate">Feb 2024</time>
+          </div>
+          <p class="font-serif text-base text-navy-800 mb-2 leading-snug group-hover:text-gold transition-colors">Active Motif Epigenetics Podcast</p>
+          <p class="text-xs text-slate leading-relaxed">Rory discusses lncRNA Xist, X-chromosome inactivation, and the SPRITE technology with host Dr. Stefan Dillinger.</p>
+          <p class="mt-3 text-xs link-gold">Listen on YouTube ↗</p>
+        </a>
+        <a href="https://www.genomicsengland.co.uk" target="_blank" rel="noopener"
+           class="group p-5 border border-gray-200 rounded-xl hover:border-gold/40 hover:shadow-sm transition-all bg-white">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-medium">Feature</span>
+            <time class="text-xs text-slate">Aug 2023</time>
+          </div>
+          <p class="font-serif text-base text-navy-800 mb-2 leading-snug group-hover:text-gold transition-colors">Genomics England — Research on the Rise</p>
+          <p class="text-xs text-slate leading-relaxed">Sunandini Ramnarayan profiled for her computational work identifying functional lncRNAs from large-scale genomics data.</p>
+          <p class="mt-3 text-xs link-gold">Read the feature ↗</p>
+        </a>
+        <div class="p-5 border border-dashed border-gray-300 rounded-xl bg-mist">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs bg-white text-slate border border-gray-300 px-2 py-0.5 rounded-full font-medium">Press Enquiries</span>
+          </div>
+          <p class="font-serif text-base text-navy-800 mb-2 leading-snug">Media &amp; interview requests</p>
+          <p class="text-xs text-slate leading-relaxed">For media enquiries, interview requests, or science communication collaborations, please contact the PI directly.</p>
+          <a href="mailto:rory.johnson@ucd.ie?subject=Media Enquiry" class="mt-3 text-xs link-gold block">rory.johnson@ucd.ie ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN CTA -->
+  <section class="py-16 bg-navy-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl text-white mb-1">Stay connected</h2>
+        <p class="text-gray-300 text-sm">Follow our research and updates via the lab website and UCD news.</p>
+      </div>
+      <a href="mailto:rory.johnson@ucd.ie" class="px-6 py-3 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors flex-shrink-0">Contact us</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const border=document.getElementById('nav-border');
+  window.addEventListener('scroll',()=>{border.classList.toggle('border-gray-200',window.scrollY>24);border.classList.toggle('shadow-sm',window.scrollY>24);},{passive:true});
+  const burger=document.getElementById('burger'),mm=document.getElementById('mobile-menu');
+  burger.addEventListener('click',()=>{const open=mm.style.maxHeight&&mm.style.maxHeight!=='0px';mm.style.maxHeight=open?'0px':mm.scrollHeight+'px';mm.style.opacity=open?'0':'1';burger.setAttribute('aria-expanded',!open);document.getElementById('icon-open').classList.toggle('hidden',!open);document.getElementById('icon-close').classList.toggle('hidden',open);});
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      document.querySelectorAll('.news-item').forEach(item=>{
+        const t=item.dataset.tags||'';
+        item.classList.toggle('hidden-item',f!=='all'&&!t.includes(f));
+      });
+    });
+  });
+</script>
+</body>
+</html>

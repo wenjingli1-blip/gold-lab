@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications | GOLD Lab | UCD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#0F2040','50':'#f0f4fa','100':'#d6e0f0','700':'#152e57','800':'#0F2040','900':'#091628'},gold:{DEFAULT:'#B07D2A',light:'#D4A044',lighter:'#EFC96A',dim:'#7A5519',muted:'#F5ECD8'},ink:'#111827',slate:'#4B5563',mist:'#F7F8FA'},fontFamily:{serif:['"DM Serif Display"','Georgia','serif'],sans:['"DM Sans"','system-ui','sans-serif']}}}}
+  </script>
+  <style>
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,h4{font-family:'DM Serif Display',Georgia,serif;}
+    .nav-link{position:relative;padding-bottom:2px;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#B07D2A;transition:width .25s ease;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #E5E7EB;border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(15,32,64,.10);z-index:50;padding:6px 0;}
+    .dropdown-menu a{display:block;padding:9px 18px;font-size:.875rem;color:#111827;white-space:nowrap;transition:background .15s,color .15s;}
+    .dropdown-menu a:hover{background:#F7F8FA;color:#B07D2A;}
+    .dropdown-trigger:hover .dropdown-menu{display:block;}
+    .link-gold{color:#B07D2A;font-weight:500;}
+    .link-gold:hover{text-decoration:underline;}
+    .pub-item.hidden-item{display:none;}
+    .filter-btn.active{background:#0F2040;color:#fff;border-color:#0F2040;}
+    .filter-btn{transition:all .2s;cursor:pointer;}
+    #mobile-menu{transition:max-height .35s ease,opacity .3s ease;}
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<!-- NAV -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 bg-white">
+  <div class="h-0.5 bg-gold"></div>
+  <div class="border-b border-transparent transition-colors duration-300" id="nav-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="font-serif text-xl text-navy-800 tracking-tight"><span class="text-gold">GOLD</span> Lab</span>
+          <span class="hidden sm:block text-gray-300 text-lg select-none">|</span>
+          <span class="hidden sm:block text-xs text-slate tracking-wide font-light">University College<br>Dublin</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="index.html"    class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Home</a>
+          <a href="research.html" class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Research</a>
+          <div class="relative dropdown-trigger">
+            <button class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide flex items-center gap-1">Tools<svg class="w-3 h-3 mt-px opacity-50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+            <div class="dropdown-menu"><a href="tools.html#decko">DECKO</a><a href="tools.html#crispeta">CRISPETa</a><a href="tools.html#caspr">CASPR</a><a href="tools.html#exinator">ExInAtor</a><a href="tools.html#transcistor">TransCistor</a></div>
+          </div>
+          <a href="team.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">Team</a>
+          <a href="publications.html" class="nav-link active text-sm font-medium text-navy-800 tracking-wide">Publications</a>
+          <a href="news.html"         class="nav-link text-sm font-medium text-slate hover:text-navy-800 tracking-wide transition-colors">News</a>
+          <a href="join.html" class="ml-2 text-sm font-medium px-4 py-2 border border-navy-800 text-navy-800 rounded hover:bg-navy-800 hover:text-white transition-colors">Join Us</a>
+        </nav>
+        <button id="burger" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate">
+          <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden max-h-0 opacity-0 overflow-hidden bg-white border-t border-gray-100">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+        <a href="index.html"        class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Home</a>
+        <a href="research.html"     class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Research</a>
+        <a href="team.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">Team</a>
+        <a href="publications.html" class="py-2.5 text-sm font-medium text-navy-800 border-b border-gray-50">Publications</a>
+        <a href="news.html"         class="py-2.5 text-sm font-medium text-slate border-b border-gray-50">News</a>
+        <a href="join.html" class="mt-2 text-center py-2.5 border border-navy-800 rounded text-sm font-medium text-navy-800">Join Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- PAGE HERO -->
+  <div class="bg-navy-900 py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-gold-lighter mb-4">Our Work</p>
+      <h1 class="font-serif text-4xl lg:text-6xl text-white mb-6 leading-tight">Publications</h1>
+      <p class="text-gray-300 text-lg max-w-2xl leading-relaxed">
+        A record of our scientific contributions — from foundational lncRNA biology to clinical diagnostics
+        and open-source genomics tools. Full lists available on
+        <a href="https://scholar.google.com" target="_blank" rel="noopener" class="text-gold-lighter hover:underline">Google Scholar ↗</a> and
+        <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener" class="text-gold-lighter hover:underline">PubMed ↗</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- FILTER + SEARCH BAR -->
+  <div class="border-b border-gray-200 bg-white sticky top-16 z-40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex flex-wrap gap-3 items-center justify-between">
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs text-slate font-medium tracking-wide uppercase mr-1">Topic:</span>
+        <button class="filter-btn active text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full" data-filter="all">All</button>
+        <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="lncrna">lncRNA Biology</button>
+        <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="cancer">Cancer</button>
+        <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="tools">Tools &amp; Methods</button>
+        <button class="filter-btn text-xs font-medium px-3 py-1.5 border border-gray-300 rounded-full text-slate" data-filter="annotation">Annotation</button>
+      </div>
+      <div class="relative">
+        <input id="search-input" type="search" placeholder="Search publications…" class="text-sm border border-gray-300 rounded-lg pl-9 pr-4 py-2 w-56 focus:outline-none focus:border-navy-800" />
+        <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <section class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10" id="pub-list">
+
+      <!-- ── 2024 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2024</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna cancer">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">Long noncoding RNAs in oncology</p>
+              <p class="text-sm text-slate mb-3"><strong class="text-ink font-medium">Coan M</strong>, Johnson R. <em>Nature Reviews Genetics</em> (2024)</p>
+              <p class="text-sm text-slate leading-relaxed">A comprehensive review of lncRNA function, dysregulation, and therapeutic potential in human cancer, covering classification, mechanisms, and clinical translation.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">Review</span>
+                <span class="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded-full">Cancer</span>
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start lg:justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">May 2024</span>
+              <a href="https://www.nature.com/nrg" target="_blank" rel="noopener" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna tools">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">TransCistor: efficient cis-regulatory lncRNA identification</p>
+              <p class="text-sm text-slate mb-3">Johnson R et al. <em>Bioinformatics</em> (2024)</p>
+              <p class="text-sm text-slate leading-relaxed">TransCistor is a computational tool for the large-scale identification of lncRNAs that act in cis to regulate neighbouring protein-coding genes, enabling systematic functional annotation.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">Tool</span>
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">Mar 2024</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── 2023 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2023</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna cancer tools">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">CASPR: end-to-end CRISPR screen analysis for single and paired RNA-guides</p>
+              <p class="text-sm text-slate mb-3">Pulido-Quetglas C, <strong class="text-ink font-medium">Johnson R</strong> et al. <em>Genome Biology</em> (2023)</p>
+              <p class="text-sm text-slate leading-relaxed">CASPR provides comprehensive analysis of CRISPR screens targeting lncRNAs, supporting both single and paired sgRNA designs from raw sequencing to ranked hit lists.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">Tool</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">CRISPR</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2023</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna annotation">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">Evolutionary conservation reveals functional lncRNAs in the human genome</p>
+              <p class="text-sm text-slate mb-3"><strong class="text-ink font-medium">Johnson R</strong>, Guigó R et al. <em>Nature Communications</em> (2023)</p>
+              <p class="text-sm text-slate leading-relaxed">Cross-species conservation analysis identifies a functionally constrained subset of human lncRNAs, with implications for annotation quality and disease relevance.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+                <span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">Annotation</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2023</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── 2019 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2019</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">Transposable elements mediate specific subcellular localisation of long noncoding RNAs in human cells</p>
+              <p class="text-sm text-slate mb-3">Carlevaro-Fita J, <strong class="text-ink font-medium">Johnson R</strong> et al. <em>Genome Research</em> (2019)</p>
+              <p class="text-sm text-slate leading-relaxed">Identified a role for evolutionarily-conserved L2b, MIRb and MIRc repetitive elements in directing lncRNAs to nuclear vs cytoplasmic compartments in human cells.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">Transposable Elements</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2019</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── 2017 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2017</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="cancer tools">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">ExInAtor: a pipeline for the discovery of cancer driver lncRNAs using somatic mutations</p>
+              <p class="text-sm text-slate mb-3">Lanzós A, <strong class="text-ink font-medium">Johnson R</strong> et al. <em>Scientific Reports</em> (2017)</p>
+              <p class="text-sm text-slate leading-relaxed">ExInAtor identifies lncRNA driver candidates in whole cancer genomes by testing for elevated mutation rates in lncRNA exons against a local background model, applied to the PCAWG cohort.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">Tool</span>
+                <span class="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded-full">Cancer</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">PCAWG</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2017</span>
+              <a href="https://www.nature.com/articles/srep2342" target="_blank" rel="noopener" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="tools lncrna">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">CRISPETa: a tool for the design of efficient paired CRISPR-Cas9 deletion experiments</p>
+              <p class="text-sm text-slate mb-3">Pulido-Quetglas C, <strong class="text-ink font-medium">Johnson R</strong> et al. <em>PLOS Computational Biology</em> (2017)</p>
+              <p class="text-sm text-slate leading-relaxed">CRISPETa automates the design of paired sgRNAs for CRISPR excision of genomic elements, accessible to bench and computational biologists. Scales from single genes to genome-wide screens.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">Tool</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">CRISPR</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2017</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── 2015 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2015</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="tools lncrna">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">DECKO: a simple and scalable vector system for CRISPR-based deletion experiments</p>
+              <p class="text-sm text-slate mb-3">Aparicio-Prat E, <strong class="text-ink font-medium">Johnson R</strong> et al. <em>BMC Genomics</em> (2015)</p>
+              <p class="text-sm text-slate leading-relaxed">Describes the DECKO (Dual Excision CRISPR Knockout) lentiviral vector system for delivering paired sgRNAs, enabling efficient deletion of lncRNA loci from single genes to genome-wide scales.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">Tool</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">CRISPR</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2015</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── 2014 ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">2014</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">The RIDL hypothesis: transposable elements as functional domains of long noncoding RNAs</p>
+              <p class="text-sm text-slate mb-3"><strong class="text-ink font-medium">Johnson R</strong>, Guigó R. <em>RNA</em> (2014)</p>
+              <p class="text-sm text-slate leading-relaxed">Proposes that neofunctionalised transposable element fragments (RIDLs) serve as sequence domains encoding lncRNA biological activity, establishing a new paradigm for understanding lncRNA function.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">Transposable Elements</span>
+                <span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">Foundational</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2014</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ── Pre-2014 Archive ── -->
+      <div class="year-group mb-14">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="font-serif text-2xl text-navy-800">Earlier Work</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="space-y-6">
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="annotation lncrna">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">The GENCODE v7 catalogue of human long noncoding RNAs: analysis of their gene structure, evolution, and expression</p>
+              <p class="text-sm text-slate mb-3">Derrien T*, <strong class="text-ink font-medium">Johnson R*</strong>, Bussotti G et al. <em>Genome Research</em> (2012) <span class="text-xs text-gray-400">*equal contribution</span></p>
+              <p class="text-sm text-slate leading-relaxed">The foundational GENCODE lncRNA annotation paper. Characterises 9,277 manually annotated lncRNA genes across 15,512 transcripts, providing the first comprehensive view of human lncRNA gene structure, conservation, and expression patterns.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">Annotation</span>
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">lncRNA Biology</span>
+                <span class="text-xs bg-gold-muted text-gold-dim px-2 py-0.5 rounded-full">Foundational</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2012</span>
+              <a href="https://genome.cshlp.org/content/22/9/1775" target="_blank" rel="noopener" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+          <article class="pub-item grid lg:grid-cols-12 gap-4 p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors" data-tags="lncrna annotation">
+            <div class="lg:col-span-9">
+              <p class="font-serif text-lg text-navy-800 mb-2 leading-snug">Genome-wide inference of natural selection on human transcription factor binding sites</p>
+              <p class="text-sm text-slate mb-3"><strong class="text-ink font-medium">Johnson R</strong>, Wegner S, Bhutani N et al. <em>Nature Genetics</em> (2007)</p>
+              <p class="text-sm text-slate leading-relaxed">Early work from Rory Johnson's PhD and postdoctoral training period, applying population-genomic methods to identify regulatory elements under purifying natural selection across the human genome.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs bg-navy-50 text-navy-700 px-2 py-0.5 rounded-full">Genomics</span>
+                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Evolution</span>
+              </div>
+            </div>
+            <div class="lg:col-span-3 flex lg:flex-col gap-2 lg:items-end justify-start">
+              <span class="text-xs font-mono bg-mist text-slate px-2 py-1 rounded">2007</span>
+              <a href="#" class="text-xs link-gold inline-flex items-center gap-1">View article ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- No results notice -->
+      <div id="no-results" class="hidden py-20 text-center">
+        <p class="text-slate text-lg font-serif">No publications match your search.</p>
+        <p class="text-sm text-slate mt-2">Try a different keyword or clear the filter.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXTERNAL PROFILES SECTION -->
+  <section class="py-16 bg-mist border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-20 items-center">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-medium tracking-[0.18em] uppercase text-gold mb-3">Full Publication List</p>
+          <h2 class="font-serif text-2xl text-navy-800 mb-4 leading-snug">Find us on academic databases</h2>
+          <p class="text-slate text-sm leading-relaxed">For a complete, up-to-date record of all publications from Rory Johnson and GOLD Lab members, visit our profiles on Google Scholar, ORCID, or PubMed.</p>
+        </div>
+        <div class="lg:col-span-8 grid sm:grid-cols-3 gap-5">
+          <a href="https://scholar.google.com/citations?user=rjohnson_ucd" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-5 bg-white border border-gray-200 rounded-xl hover:border-gold/40 hover:shadow-sm transition-all group">
+            <div class="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5 12 0z"/></svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-navy-800 group-hover:text-gold transition-colors">Google Scholar</p>
+              <p class="text-xs text-slate mt-0.5">Rory Johnson</p>
+            </div>
+          </a>
+          <a href="https://orcid.org/0000-0003-3906-6632" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-5 bg-white border border-gray-200 rounded-xl hover:border-gold/40 hover:shadow-sm transition-all group">
+            <div class="w-12 h-12 rounded-lg bg-green-50 border border-green-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-green-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 3.872-2.862 3.872-3.722 0-2.016-1.091-3.722-3.862-3.722h-2.307z"/></svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-navy-800 group-hover:text-gold transition-colors">ORCID</p>
+              <p class="text-xs text-slate mt-0.5">0000-0003-3906-6632</p>
+            </div>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Johnson+R%5BAuthor%5D+lncRNA" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-5 bg-white border border-gray-200 rounded-xl hover:border-gold/40 hover:shadow-sm transition-all group">
+            <div class="w-12 h-12 rounded-lg bg-gold-muted border border-gold/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-navy-800 group-hover:text-gold transition-colors">PubMed</p>
+              <p class="text-xs text-slate mt-0.5">NIH database</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN CTA -->
+  <section class="py-16 bg-navy-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl text-white mb-1">Want to collaborate?</h2>
+        <p class="text-gray-300 text-sm">We are always open to scientific collaborations and partnerships.</p>
+      </div>
+      <a href="mailto:rory.johnson@ucd.ie" class="px-6 py-3 bg-gold text-white text-sm font-medium rounded hover:bg-gold-light transition-colors flex-shrink-0">Get in touch</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-navy-900 text-gray-400">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
+      <div class="lg:col-span-2">
+        <p class="font-serif text-xl text-white mb-1"><span class="text-gold">GOLD</span> Lab</p>
+        <p class="text-xs text-gray-500 mb-4">Genomics of Long noncoding RNA and Disease</p>
+        <p class="text-sm text-gray-400 leading-relaxed max-w-xs">University College Dublin, Belfield, Dublin 4, Ireland.</p>
+        <a href="https://www.gold-lab.org" class="text-sm text-gold-lighter hover:underline mt-2 inline-block">gold-lab.org ↗</a>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Explore</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"        class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="research.html"     class="hover:text-white transition-colors">Research</a></li>
+          <li><a href="team.html"         class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="publications.html" class="hover:text-white transition-colors">Publications</a></li>
+          <li><a href="news.html"         class="hover:text-white transition-colors">News</a></li>
+          <li><a href="join.html"         class="hover:text-white transition-colors">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-gray-500 mb-4">Contact</p>
+        <a href="mailto:rory.johnson@ucd.ie" class="text-sm hover:text-white transition-colors">rory.johnson@ucd.ie</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-xs text-gray-600">
+      <p>© 2025 GOLD Lab, University College Dublin.</p>
+      <p>PI: <a href="mailto:rory.johnson@ucd.ie" class="text-gray-500 hover:text-gray-300">Rory Johnson</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav
+  const border=document.getElementById('nav-border');
+  window.addEventListener('scroll',()=>{border.classList.toggle('border-gray-200',window.scrollY>24);border.classList.toggle('shadow-sm',window.scrollY>24);},{passive:true});
+  // Burger
+  const burger=document.getElementById('burger'),mm=document.getElementById('mobile-menu');
+  burger.addEventListener('click',()=>{const open=mm.style.maxHeight&&mm.style.maxHeight!=='0px';mm.style.maxHeight=open?'0px':mm.scrollHeight+'px';mm.style.opacity=open?'0':'1';burger.setAttribute('aria-expanded',!open);document.getElementById('icon-open').classList.toggle('hidden',!open);document.getElementById('icon-close').classList.toggle('hidden',open);});
+  // Filter
+  let activeFilter='all';
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter=btn.dataset.filter;
+      applyFilters();
+    });
+  });
+  // Search
+  document.getElementById('search-input').addEventListener('input',applyFilters);
+  function applyFilters(){
+    const q=document.getElementById('search-input').value.toLowerCase();
+    let anyVisible=false;
+    document.querySelectorAll('.pub-item').forEach(item=>{
+      const tags=item.dataset.tags||'';
+      const text=item.textContent.toLowerCase();
+      const tagMatch=activeFilter==='all'||tags.includes(activeFilter);
+      const textMatch=!q||text.includes(q);
+      const show=tagMatch&&textMatch;
+      item.classList.toggle('hidden-item',!show);
+      if(show)anyVisible=true;
+    });
+    // Show/hide year groups with no visible pubs
+    document.querySelectorAll('.year-group').forEach(yg=>{
+      const visible=[...yg.querySelectorAll('.pub-item')].some(p=>!p.classList.contains('hidden-item'));
+      yg.style.display=visible?'':'none';
+    });
+    document.getElementById('no-results').classList.toggle('hidden',anyVisible);
+  }
+</script>
+</body>
+</html>
